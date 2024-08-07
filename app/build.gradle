@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "jp.co.osstech.jeidreader"
         minSdkVersion 14
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 44
         versionName "1.0." + versionCode
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
