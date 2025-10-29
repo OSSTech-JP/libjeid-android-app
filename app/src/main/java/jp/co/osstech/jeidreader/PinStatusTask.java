@@ -6,6 +6,7 @@ import jp.co.osstech.libjeid.CardType;
 import jp.co.osstech.libjeid.DriverLicenseAP;
 import jp.co.osstech.libjeid.INTextAP;
 import jp.co.osstech.libjeid.INVisualAP;
+import jp.co.osstech.libjeid.INDriverLicenseAP;
 import jp.co.osstech.libjeid.JPKIAP;
 import jp.co.osstech.libjeid.JeidReader;
 import jp.co.osstech.libjeid.ResidenceCardAP;
@@ -60,6 +61,13 @@ public class PinStatusTask
                 publishProgress("JPKI-AP ユーザー認証PIN: " + counter);
                 counter = jpkiAP.getSignPin();
                 publishProgress("JPKI-AP デジタル署名PIN: " + counter);
+                try {
+                    INDriverLicenseAP indAP = reader.selectINDriverLicenseAP();
+                    counter = indAP.getPin();
+                    publishProgress("マイナ運転免許証AP 暗証番号: " + counter);
+                } catch (java.io.FileNotFoundException e) {
+                    // マイナ運転免許証APが無い
+                }
                 break;
             case DL:
                 publishProgress("カード種別: 運転免許証");
