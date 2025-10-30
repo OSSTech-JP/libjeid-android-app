@@ -11,6 +11,10 @@
       android:text="@string/dl_reader"
       style="@style/MenuButton" />
   <Button
+      android:id="@+id/indl_reader_button"
+      android:text="@string/indl_reader"
+      style="@style/MenuButton" />
+  <Button
       android:id="@+id/ep_reader_button"
       android:text="@string/ep_reader"
       style="@style/MenuButton" />

@@ -24,6 +24,8 @@
     <!--<string name="jpki_menu">公的個人認証メニュー</string>-->
     <string name="dl_reader">運転免許証リーダー</string>
     <string name="dl_viewer">運転免許証ビューア</string>
+    <string name="indl_reader">マイナ運転免許証リーダー</string>
+    <string name="indl_viewer">マイナ運転免許証ビューア</string>
     <string name="ep_reader">パスポートリーダー</string>
     <string name="ep_viewer">パスポートビューア</string>
     <string name="rc_reader">在留カードリーダー</string>

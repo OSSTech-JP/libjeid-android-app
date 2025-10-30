@@ -93,6 +93,19 @@
         android:exported="false">
     </activity>
     <activity
+        android:name=".INDLReaderActivity"
+        android:label="@string/indl_reader"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="adjustResize"
+        android:exported="false">
+    </activity>
+    <activity
+        android:name=".INDLViewerActivity"
+        android:label="@string/indl_viewer"
+        android:screenOrientation="portrait"
+        android:exported="false">
+    </activity>
+    <activity
         android:name=".EPReaderActivity"
         android:label="@string/ep_reader"
         android:screenOrientation="portrait"
