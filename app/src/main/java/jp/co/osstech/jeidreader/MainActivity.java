@@ -4,41 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity
-    extends BaseActivity
-    implements View.OnClickListener
+public class MainActivity extends BaseActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
-        findViewById(R.id.in_menu_button).setOnClickListener(this);
-        findViewById(R.id.dl_reader_button).setOnClickListener(this);
-        findViewById(R.id.ep_reader_button).setOnClickListener(this);
-        findViewById(R.id.rc_reader_button).setOnClickListener(this);
-        findViewById(R.id.pinstatus_button).setOnClickListener(this);
+        setClickListener(R.id.in_menu_button, INMenuActivity.class);
+        setClickListener(R.id.dl_reader_button, DLReaderActivity.class);
+        setClickListener(R.id.indl_reader_button, INDLReaderActivity.class);
+        setClickListener(R.id.ep_reader_button, EPReaderActivity.class);
+        setClickListener(R.id.rc_reader_button, RCReaderActivity.class);
+        setClickListener(R.id.pinstatus_button, PinStatusActivity.class);
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent;
-        int id = view.getId();
-        if (id == R.id.dl_reader_button) {
-            intent = new Intent(getApplication(), DLReaderActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.in_menu_button) {
-            intent = new Intent(getApplication(), INMenuActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.ep_reader_button) {
-            intent = new Intent(getApplication(), EPReaderActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.rc_reader_button) {
-            intent = new Intent(getApplication(), RCReaderActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.pinstatus_button) {
-            intent = new Intent(getApplication(), PinStatusActivity.class);
-            startActivity(intent);
-        }
+    private void setClickListener(int buttonId, final Class<?> activity) {
+        findViewById(buttonId).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, activity));
+            }
+        });
     }
-
 }
