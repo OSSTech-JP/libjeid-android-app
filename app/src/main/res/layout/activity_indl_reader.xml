@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppLayout">
+  <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <TextView
+          android:id="@+id/info"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="マイナ免許証を読み取ります。暗証番号(4桁)を入力してください。"
+          android:textSize="20sp" />
+      <TextView
+          android:id="@+id/text_indl_pin"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="暗証番号(4桁)"
+          android:textSize="20sp" />
+      <EditText
+          android:id="@+id/edit_indl_pin"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:ems="10"
+          android:textSize="20sp"
+          android:inputType="numberPassword"
+          android:maxLength="4"
+          android:hint="@null"
+          tools:ignore="Autofill" />
+    </LinearLayout>
+  </ScrollView>
+  <ScrollView
+      android:id="@+id/scroll"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:layout_marginTop="8dp">
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="12sp" />
+  </ScrollView>
+</LinearLayout>
+
