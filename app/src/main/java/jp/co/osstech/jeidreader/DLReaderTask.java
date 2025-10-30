@@ -63,20 +63,16 @@ public class DLReaderTask
             }
             DriverLicenseAP ap = reader.selectDriverLicenseAP();
 
-            // PINを入力せず共通データ要素を読み出す場合は、
-            // DriverLicenseAP#getCommonData()を利用できます。
-            // PIN1を入力せずにDriverLicenseAP#readFiles()を実行した場合、
-            // 共通データ要素と暗証番号(PIN)設定のみを読み出します。
-            DriverLicenseFiles freeFiles = ap.readFiles();
-            DriverLicenseCommonData commonData = freeFiles.getCommonData();
-            DLPinSetting pinSetting = freeFiles.getPinSetting();
+            // PINを入力せず共通データ要素を読み出します
+            DriverLicenseCommonData commonData = ap.readCommonData();
             publishProgress("## 共通データ要素");
             publishProgress(commonData.toString());
+            DLPinSetting pinSetting = ap.readPinSetting();
             publishProgress("## 暗証番号(PIN)設定");
             publishProgress(pinSetting.toString());
 
             if (pin1.isEmpty()) {
-                publishProgress("暗証番号1を設定してください");
+                publishProgress("暗証番号1を入力してください");
                 return;
             }
             if (!pinSetting.isPinSet()) {
