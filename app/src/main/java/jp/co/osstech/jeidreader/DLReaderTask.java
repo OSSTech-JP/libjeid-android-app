@@ -238,18 +238,19 @@ public class DLReaderTask
                 // 電子署名を取得
                 DriverLicenseSignature signature = files.getSignature();
                 String signatureIssuer = signature.getIssuer();
-                publishProgress("Issuer: " + signatureIssuer);
-                obj.put("dl-signature-issuer", signatureIssuer);
+                publishProgress("署名者: " + signatureIssuer);
+                obj.put("signature-issuer", signatureIssuer);
                 String signatureSubject = signature.getSubject();
-                publishProgress("Subject: " + signatureSubject);
-                obj.put("dl-signature-subject", signatureSubject);
+                publishProgress("主体者: " + signatureSubject);
+                obj.put("signature-subject", signatureSubject);
                 String signatureSKI = Hex.encode(signature.getSubjectKeyIdentifier(), ":");
-                publishProgress("Subject Key Identifier: " + signatureSKI);
-                obj.put("dl-signature-ski", signatureSKI);
+                publishProgress("主体者鍵識別子: " + signatureSKI);
+                obj.put("signature-ski", signatureSKI);
 
                 // 真正性検証
                 ValidationResult result = files.validate();
                 obj.put("dl-verified", result.isValid());
+                obj.put("signature-valid", result.isValid());
                 publishProgress("真正性検証結果: " + result);
             } catch(FileNotFoundException e) {
                 // PIN2を入力していないfilesオブジェクトは

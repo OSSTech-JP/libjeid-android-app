@@ -45,27 +45,7 @@ public class INDLViewerActivity
             });
     }
 
-    public void addMessage(String msg) {
-        String js = "addMessage(" + JSONObject.quote(msg) + ")";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webView.evaluateJavascript(js, null);
-        } else {
-            webView.loadUrl("javascript:" + js );
-        }
-        webView.scrollTo(0, webView.getContentHeight());
-    }
-
-    public void clearMessage(String msg) {
-        String js = "clearMessage()";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webView.evaluateJavascript(js, null);
-        } else {
-            webView.loadUrl("javascript:" + js );
-        }
-    }
-
     public void render() {
-        //Log.d(TAG, "json: " + json);
         String js = "render(" + JSONObject.quote(json) + ")";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.evaluateJavascript(js, null);
