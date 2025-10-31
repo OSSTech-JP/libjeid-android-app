@@ -1,18 +1,62 @@
 
-function addMessage(msg)
-{
-    var area = document.getElementById("msg")
-    if (area) {
-        area.innerHTML += htmlEscape(msg) + '<br/>';
+function createRow(name, value) {
+    const tr = document.createElement('tr');
+    const td1 = document.createElement('td');
+    td1.textContent = name;
+    const td2 = document.createElement('td');
+    if (typeof value === 'string') {
+      td2.textContent = value;
+    } else {
+      td2.appendChild(value);
     }
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    return tr;
 }
 
-function clearMessage()
-{
-    var area = document.getElementById("msg")
-    if (area) {
-        area.innerHTML = '';
+function dlstr2html(str) {
+    if (typeof str == "string") {
+        return str;
     }
+    var html = "";
+    const style = 'height: 1em; position: relative; top: 0.14em;';
+    for (var i=0; i<str.length; i++) {
+        var c = str[i];
+        if (c['type'] == 'text/plain') {
+            html += htmlEscape(c['value']);
+        } else if (c['type'] == 'image/png') {
+            html += '<img style="' + style + '" ' +
+                'src="data:image/png;base64,' + c['value'] +  '" />';
+        } else if (c['type'] == 'image/x-missing') {
+            // 欠字
+            html += "？";
+        }
+    }
+    return html;
+}
+
+function dlstr2elm(str) {
+    const div = document.createElement('div');
+    if (typeof str == "string") {
+        return str;
+    }
+    for (var i=0; i<str.length; i++) {
+        var c = str[i];
+        if (c['type'] == 'text/plain') {
+            let text = document.createTextNode(c['value']);
+            div.appendChild(text)
+        } else if (c['type'] == 'image/png') {
+            let img = document.createElement('img');
+            img.style = 'height: 1em; position: relative; top: 0.14em;';
+            img.src = 'data:image/png;base64,' + c['value'];
+            div.appendChild(img);
+        } else if (c['type'] == 'image/x-missing') {
+            // 欠字
+            let text = document.createTextNode('？');
+            div.appendChild(text)
+        }
+    }
+    return div;
 }
 
 function htmlEscape(str) {
@@ -32,24 +76,24 @@ function full2half(str) {
 function render(json) {
     data = JSON.parse(json);
     if ('dl-name' in data) {
-        document.getElementById("dl-name").innerHTML = dlstr2html(data['dl-name']);
+        document.getElementById("dl-name").innerHTML = '';
+        document.getElementById("dl-name").appendChild(dlstr2elm(data['dl-name']));
     }
     if ('dl-birth' in data) {
-        document.getElementById("dl-birth").innerHTML = htmlEscape(data['dl-birth'])
-            + '生';
+        document.getElementById("dl-birth").textContent = data['dl-birth'] + '生';
     }
     if ('dl-addr' in data) {
-        document.getElementById("dl-addr").innerHTML = dlstr2html(data['dl-addr']);
+        document.getElementById("dl-addr").innerHTML = '';
+        document.getElementById("dl-addr").appendChild(dlstr2elm(data['dl-addr']));        
     }
     if ('dl-issue' in data) {
-        document.getElementById("dl-issue").innerHTML = htmlEscape(data['dl-issue']);
+        document.getElementById("dl-issue").textContent = data['dl-issue'];
     }
     if ('dl-ref' in data) {
-        document.getElementById("dl-ref").innerHTML = htmlEscape(data['dl-ref']);
+        document.getElementById("dl-ref").textContent = data['dl-ref'];
     }
     if ('dl-expire' in data) {
-        document.getElementById("dl-expire").innerHTML = htmlEscape(data['dl-expire'])
-            + 'まで有効';
+        document.getElementById("dl-expire").textContent = data['dl-expire'] + 'まで有効';
     }
     if ('dl-is-expired' in data) {
       if (data['dl-is-expired']) {
@@ -75,49 +119,47 @@ function render(json) {
 
     var elm = document.getElementById('dl-condition1');
     if ('dl-condition1' in data) {
-        elm.innerHTML = full2half(data['dl-condition1']);
+        elm.textContent = full2half(data['dl-condition1']);
     } else {
-        elm.innerHTML = '';
+        elm.textContent = '';
     }
 
     var elm = document.getElementById('dl-condition2');
     if ('dl-condition2' in data) {
-        elm.innerHTML = full2half(data['dl-condition2']);
+        elm.textContent = full2half(data['dl-condition2']);
     } else {
-        elm.innerHTML = '';
+        elm.textContent = '';
     }
 
     var elm = document.getElementById('dl-condition3');
     if ('dl-condition3' in data) {
-        elm.innerHTML = full2half(data['dl-condition3']);
+        elm.textContent = full2half(data['dl-condition3']);
     } else {
-        elm.innerHTML = '';
+        elm.textContent = '';
     }
 
     var elm = document.getElementById('dl-condition4');
     if ('dl-condition4' in data) {
-        elm.innerHTML = full2half(data['dl-condition4']);
+        elm.textContent = full2half(data['dl-condition4']);
     } else {
-        elm.innerHTML = '';
+        elm.textContent = '';
     }
 
     if ('dl-number' in data) {
-        document.getElementById("dl-number").innerHTML = '第　' + htmlEscape(data['dl-number']) + '　号';
+        document.getElementById("dl-number").textContent = '第　' + data['dl-number'] + '　号';
     }
     if ('dl-sc' in data) {
-        document.getElementById("dl-sc").innerHTML = htmlEscape(data['dl-sc']);
+        document.getElementById("dl-sc").textContent = data['dl-sc'];
     }
     if ('dl-photo' in data) {
         document.getElementById("dl-photo").src = data['dl-photo'];
     }
 
-    if ('dl-verified' in data) {
+    if ('signature-valid' in data) {
         document.getElementById("dl-verified").style.display = "inline-block";
-        if (data['dl-verified']) {
-            //document.getElementById("dl-verified").innerHTML = "✔";
+        if (data['signature-valid']) {
             document.getElementById("dl-verified").src = "verify-success.png";
         } else {
-            //document.getElementById("dl-verified").innerHTML = "✖";
             document.getElementById("dl-verified").src = "verify-failed.png";
         }
     }else{
@@ -125,52 +167,39 @@ function render(json) {
     }
 
     var elm = document.getElementById("dl-name-etc");
-    elm.innerHTML = '<tr><th style="width: 30%"></th><th style="width: 70%"></th></tr>\n';
     if ('dl-name' in data) {
-        elm.innerHTML += '<tr><td>氏名</td><td>' +
-            dlstr2html(data['dl-name']) +
-            '</td></tr>\n';
+        elm.appendChild(createRow('氏名', dlstr2elm(data['dl-name'])));
     }
     if ('dl-kana' in data) {
-        elm.innerHTML += "<tr><td>呼び名(カナ)</td><td>" +
-            htmlEscape(data['dl-kana']) +
-            "</td></tr>\n";
+        elm.appendChild(createRow('呼び名(カナ)', dlstr2elm(data['dl-kana'])));
     }
     if ('dl-addr' in data) {
-        elm.innerHTML += "<tr><td>住所</td><td>" +
-            dlstr2html(data['dl-addr']) +
-            "</td></tr>\n";
+        elm.appendChild(createRow('住所', dlstr2elm(data['dl-addr'])));
     }
     if ('dl-registered-domicile' in data) {
-        elm.innerHTML += "<tr><td>本籍</td><td>" +
-            dlstr2html(data['dl-registered-domicile']) +
-            "</td></tr>\n";
+        elm.appendChild(createRow('本籍', dlstr2elm(data['dl-registered-domicile'])));
     }
 
     var elm = document.getElementById("dl-categories");
-    elm.innerHTML = '<tr><th style="width: 30%"></th><th style="width: 70%"></th></tr>\n';
     if ('dl-categories' in data) {
         var categories = data['dl-categories'];
         var traction = false;
         var traction2 = false;
         for(var i=0; i<categories.length; i++) {
             var cat = categories[i];
-            var html = "<tr><td>" +
-                htmlEscape(cat['name']) +
-                "</td><td>" +
-                (cat['licensed']?htmlEscape(cat['date']):'なし') +
-                "</td></tr>\n";
-            elm.innerHTML += html;
+            if (cat['licensed']) {
+                elm.appendChild(createRow(cat['name'], cat['date']));
+            }
 
             switch(cat['tag']) {
             case 0x22:
-                document.getElementById("dl-cat-22-date").innerHTML = cat['date'];
+                document.getElementById("dl-cat-22-date").textContent = cat['date'];
                 break;
             case 0x23:
-                document.getElementById("dl-cat-23-date").innerHTML = cat['date'];
+                document.getElementById("dl-cat-23-date").textContent = cat['date'];
                 break;
             case 0x24:
-                document.getElementById("dl-cat-24-date").innerHTML = cat['date'];
+                document.getElementById("dl-cat-24-date").textContent = cat['date'];
                 break;
             case 0x25:
             case 0x26:
@@ -207,10 +236,10 @@ function render(json) {
                 catElm.style.display = "block";
                 if (traction && !traction2) {
                     catElm.className = "dl-cat-cell-2";
-                    catElm.innerHTML = "け引";
+                    catElm.textContent = "け引";
                 } else if (!traction && traction2) {
                     catElm.className = "dl-cat-cell-3";
-                    catElm.innerHTML = "け引二";
+                    catElm.textContent = "け引二";
                 } else if (traction && traction2) {
                     catElm.className = "dl-cat-cell-3";
                     catElm.innerHTML = "引<div class=\"dl-cat-dot\"></div>引二";
@@ -219,24 +248,18 @@ function render(json) {
         }
     }
 
-    var elm = document.getElementById("dl-signature");
-    elm.innerHTML = '<tr><th style="width: 30%"></th><th style="width: 70%"></th></tr>\n';
-    if ('dl-signature-subject' in data) {
-        elm.innerHTML += '<tr><td>Subject</td><td>' +
-            htmlEscape(data['dl-signature-subject']) +
-            '</td></tr>\n';
+    const signature = document.getElementById("signature");
+    if ('signature-valid' in data) {
+        signature.appendChild(createRow('電子署名', data['signature-valid']?'有効':'無効'));
     }
-    if ('dl-signature-ski' in data) {
-        elm.innerHTML += "<tr><td>Subject Key Identifier</td><td>" +
-            htmlEscape(data['dl-signature-ski']) +
-            "</td></tr>\n";
+    if ('signature-issuer' in data) {
+        signature.appendChild(createRow('発行者', data['signature-issuer']));
     }
-    if ('dl-verified' in data) {
-        if (data['dl-verified']) {
-            elm.innerHTML += "<tr><td>署名検証</td><td>成功</td>";
-        }else{
-            elm.innerHTML += "<tr><td>署名検証</td><td>失敗</td>";
-        }
+    if ('signature-subject' in data) {
+        signature.appendChild(createRow('主体者', data['signature-subject']));
+    }
+    if ('signature-ski' in data) {
+        signature.appendChild(createRow('主体者鍵識別子', data['signature-ski']));
     }
 
     var elm = document.getElementById('dl-changes');
@@ -256,13 +279,16 @@ function render(json) {
             var value = changes[i]['value'];
             var psc = changes[i]['psc'];
             var date = changes[i]['date'];
+            elm.appendChild(document.createTextNode(date + " " + label + "："));
             if (i == 0) {
-                date += "<br/>\n";
-            } else {
-                date += "&nbsp;";
+                elm.appendChild(document.createElement('br'));
             }
-            elm.innerHTML += date + htmlEscape(label) + "："
-                + dlstr2html(value) + "<div class=\"dl-changes-seal\">" + htmlEscape(psc) + "</div><br/>";
+            elm.appendChild(dlstr2elm(value));
+            const seal = document.createElement('div');
+            seal.className = "dl-changes-seal";
+            seal.textContent = psc;
+            elm.appendChild(seal);
+            elm.appendChild(document.createElement('br'));
         }
     }
 }

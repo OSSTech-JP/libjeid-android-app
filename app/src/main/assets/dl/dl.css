@@ -53,13 +53,14 @@ h1 {
 
 .dl-label {
   width: 44px;
-  display: inline-block;
+  display: table-cell;
   padding-left: 10px;
+  vertical-align: middle;
 }
 
 .dl-name {
   width: 320px;
-  display: inline-block;
+  display: table-cell;
   padding: 4px;
   text-align: center;
   border-left: 1px solid #000000;
@@ -80,7 +81,7 @@ h1 {
 */
 
 .dl-birth {
-  display: inline-block;
+  display: table-cell;
   padding: 4px;
 }
 
@@ -91,20 +92,21 @@ h1 {
 }
 
 .dl-addr {
-  display: inline-block;
+  display: table-cell;
   border-left: 1px solid #000000;
+  word-break: break-all;
   padding: 4px;
   background-color: #fff; /*for old android bug*/
 }
 
 .dl-issue {
-  display: inline-block;
+  display: table-cell;
   border-left: 1px solid #000000;
   padding: 4px;
 }
 
 .dl-ref {
-  display: inline-block;
+  display: table-cell;
   padding: 4px;
   padding-left: 50px;
 }
@@ -408,4 +410,5 @@ table.dl-table td {
   background-color: #fff;
   border: 1px solid #000000;
   padding: 4px;
+  word-break: break-all;
 }
