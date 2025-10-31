@@ -101,7 +101,7 @@ public abstract class BaseActivity
             }
             Intent intent = new Intent(this, this.getClass());
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
             String[][] techLists = new String[][] {
                 new String[] { NfcB.class.getName() },
                 new String[] { IsoDep.class.getName() }
