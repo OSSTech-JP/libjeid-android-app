@@ -89,7 +89,6 @@ public class INDLReaderTask
             JSONObject obj = new JSONObject();
             obj.put("color-class", entries.getColorClass());
             obj.put("expire-date", entries.getExpireDate());
-            //JSONArray conditions = new JSONArray(entries.getConditions());
             obj.put("conditions", new JSONArray(entries.getConditions()));
             obj.put("license-number", entries.getLicenseNumber());
             JSONArray categories = new JSONArray();
@@ -120,8 +119,7 @@ public class INDLReaderTask
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
             byte[] jpeg = os.toByteArray();
-            String src = Base64.encodeToString(jpeg, Base64.DEFAULT);
-            obj.put("photo", src);
+            obj.put("photo", Base64.encodeToString(jpeg, Base64.DEFAULT));
 
             // 電子署名
             INDLSignature signature = files.getSignature();
