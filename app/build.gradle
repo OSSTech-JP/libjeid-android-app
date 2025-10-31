@@ -5,13 +5,13 @@ def local = new Properties()
 local.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
-    namespace "jp.co.osstech.jeidreader"
-    compileSdkVersion 33
+    namespace = "jp.co.osstech.jeidreader"
+    compileSdkVersion 35
     defaultConfig {
         applicationId "jp.co.osstech.jeidreader"
         minSdkVersion 14
-        targetSdkVersion 34
-        versionCode 44
+        targetSdkVersion 35
+        versionCode 49
         versionName "1.0." + versionCode
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
@@ -28,7 +28,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig = signingConfigs.release
         }
     }
     buildFeatures {
@@ -39,13 +39,13 @@ android {
         targetCompatibility 1.8
     }
     lintOptions {
-        abortOnError false
+        abortOnError = false
         disable 'SetTextI18n'
         disable 'HardcodedText'
         disable 'IconLocation'
         disable 'TextFields'
         disable 'SetJavaScriptEnabled'
-        textReport true
+        textReport = true
     }
     testOptions {
         unitTests.all {
@@ -56,17 +56,20 @@ android {
             }
         }
     }
+    packaging {
+        resources.excludes.add("META-INF/versions/9/OSGI-INF/MANIFEST.MF")
+    }
 }
 
 repositories {
     maven {
-        url 'https://www.osstech.co.jp/download/libjeid/m2/'
+        url = 'https://www.osstech.co.jp/download/libjeid/m2/'
 
         if (local.getProperty("libjeid.username") &&
             local.getProperty("libjeid.password")) {
             credentials {
-                username local.getProperty("libjeid.username")
-                password local.getProperty("libjeid.password")
+                username = local.getProperty("libjeid.username")
+                password = local.getProperty("libjeid.password")
             }
         }
 
@@ -81,10 +84,10 @@ repositories {
 dependencies {
     if (local.getProperty("libjeid.username")) {
         // LibJeID製品版を利用
-        implementation 'jp.co.osstech:libjeid-full:20240807@aar'
+        implementation 'jp.co.osstech:libjeid-full:20251031@aar'
     } else {
         // LibJeID無償版を利用
-        implementation 'jp.co.osstech:libjeid-free:20240807@aar'
+        implementation 'jp.co.osstech:libjeid-free:20251031@aar'
     }
 
     // ダウンロードしたaarファイルを利用
@@ -93,6 +96,6 @@ dependencies {
 
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.77'
-    implementation 'org.bouncycastle:bcpkix-jdk15to18:1.77'
+    implementation 'org.bouncycastle:bcprov-lts8on:2.73.9'
+    implementation 'org.bouncycastle:bcpkix-lts8on:2.73.9'
 }
