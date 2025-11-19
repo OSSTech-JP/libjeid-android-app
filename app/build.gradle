@@ -6,12 +6,12 @@ local.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     namespace = "jp.co.osstech.jeidreader"
-    compileSdkVersion 35
+    compileSdkVersion 34
     defaultConfig {
         applicationId "jp.co.osstech.jeidreader"
         minSdkVersion 14
-        targetSdkVersion 35
-        versionCode 49
+        targetSdkVersion 34
+        versionCode 51
         versionName "1.0." + versionCode
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
