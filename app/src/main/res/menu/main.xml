@@ -16,9 +16,6 @@
       android:id="@+id/menu_nfc_settings"
       android:title="NFC設定" />
   <item
-      android:id="@+id/menu_nfc_mode"
-      android:title="高度な設定" />
-  <item
       android:id="@+id/menu_about"
       android:title="このアプリについて" />
 </menu>
