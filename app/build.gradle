@@ -46,6 +46,8 @@ android {
         disable 'TextFields'
         disable 'SetJavaScriptEnabled'
         disable 'TrustAllX509TrustManager'
+        disable 'IconColors'
+        disable 'MonochromeLauncherIcon'
         textReport = true
     }
     testOptions {
