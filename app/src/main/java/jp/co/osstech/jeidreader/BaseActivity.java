@@ -162,12 +162,7 @@ public abstract class BaseActivity
         int id = item.getItemId();
         if (id == R.id.menu_nfc_settings) {
             // NFC設定画面を開きます
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                intent = new Intent(Settings.ACTION_NFC_SETTINGS);
-            } else {
-                // Android 4.1より前はNFC設定が無線の設定項目にある
-                intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
-            }
+            intent = new Intent(Settings.ACTION_NFC_SETTINGS);
             startActivity(intent);
         } else if (id == R.id.menu_nfc_mode) {
             new NFCModeDialogFragment()

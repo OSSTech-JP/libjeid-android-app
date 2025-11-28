@@ -43,13 +43,8 @@ public class DLViewerActivity
     }
 
     public void render() {
-        //Log.d(TAG, "json: " + json);
         String js = "render(" + JSONObject.quote(json) + ")";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webView.evaluateJavascript(js, null);
-        } else {
-            webView.loadUrl("javascript:" + js);
-        }
+        webView.evaluateJavascript(js, null);
     }
 
     @Override
