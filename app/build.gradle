@@ -6,12 +6,12 @@ local.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     namespace = "jp.co.osstech.jeidreader"
-    compileSdkVersion 34
+    compileSdkVersion 36
     defaultConfig {
         applicationId "jp.co.osstech.jeidreader"
-        minSdkVersion 14
-        targetSdkVersion 34
-        versionCode 51
+        minSdkVersion 21
+        targetSdkVersion 36
+        versionCode 53
         versionName "1.0." + versionCode
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
@@ -45,6 +45,7 @@ android {
         disable 'IconLocation'
         disable 'TextFields'
         disable 'SetJavaScriptEnabled'
+        disable 'TrustAllX509TrustManager'
         textReport = true
     }
     testOptions {
@@ -95,7 +96,7 @@ dependencies {
     //implementation project(path: ':libjeid', configuration: 'free')
 
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'org.bouncycastle:bcprov-lts8on:2.73.9'
     implementation 'org.bouncycastle:bcpkix-lts8on:2.73.9'
 }
