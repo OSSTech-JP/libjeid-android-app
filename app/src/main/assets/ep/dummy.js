@@ -17,7 +17,7 @@ var testData = {
 };
 
 window.onload = function() {
-    addMessage("onload");
+    console.log("onload");
     var json = JSON.stringify(testData);
     render(json);
 }

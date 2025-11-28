@@ -1,34 +1,10 @@
 
-function addMessage(msg)
-{
-    var area = document.getElementById("msg");
-    if (area) {
-        area.innerHTML += htmlEscape(msg) + '<br/>';
-    }
-}
-
-function clearMessage()
-{
-    var area = document.getElementById("msg");
-    if (area) {
-        area.innerHTML = '';
-    }
-}
-
-function htmlEscape(str) {
-    return str.replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
 function render(json) {
     data = JSON.parse(json);
     if ('cardinfo-name' in data) {
-        document.getElementById("cardinfo-name").innerHTML = data['cardinfo-name'];
-        document.getElementById("cardinfo-backside-name").innerHTML = data['cardinfo-name'];
-        document.getElementById("cardinfo-hojo-name").innerHTML = data['cardinfo-name'];
+        document.getElementById("cardinfo-name").textContent = data['cardinfo-name'];
+        document.getElementById("cardinfo-backside-name").textContent = data['cardinfo-name'];
+        document.getElementById("cardinfo-hojo-name").textContent = data['cardinfo-name'];
     }
     if ('cardinfo-birth' in data) {
         var birth = data['cardinfo-birth'];
@@ -53,47 +29,46 @@ function render(json) {
                        .replace(/(\D)(\d)年/g, '$1 $2年')
                        .replace(/(\D)(\d)月/g, '$1 $2月')
                        .replace(/(\D)(\d)日/g, '$1 $2日');
-        document.getElementById("cardinfo-birth").innerHTML = wareki + '生';
-        document.getElementById("cardinfo-backside-birth").innerHTML = wareki + '生';
-        document.getElementById("cardinfo-hojo-birth").innerHTML = birth;
+        document.getElementById("cardinfo-birth").textContent = wareki + '生';
+        document.getElementById("cardinfo-backside-birth").textContent = wareki + '生';
+        document.getElementById("cardinfo-hojo-birth").textContent = birth;
     }
     if ('cardinfo-addr' in data) {
-        var address = htmlEscape(data['cardinfo-addr']);
-        document.getElementById("cardinfo-addr").innerHTML = address;
-        document.getElementById("cardinfo-hojo-address").innerHTML = address;
+        document.getElementById("cardinfo-addr").textContent = data['cardinfo-addr'];
+        document.getElementById("cardinfo-hojo-address").textContent = data['cardinfo-addr'];
     }
     if ('cardinfo-sex' in data) {
         var sex = data['cardinfo-sex'];
         var elm = document.getElementById("cardinfo-sex");
         if (sex == '男' || sex == '男性') {
-            elm.innerHTML = '男';
+            elm.textContent = '男';
         } else if (sex == '女' || sex == '女性') {
-            elm.innerHTML = '女';
+            elm.textContent = '女';
         } else if (sex == '不明') {
-            elm.innerHTML = '不明';
+            elm.textContent = '不明';
         } else if (sex == '適用不能') {
-            elm.innerHTML = '不明';
+            elm.textContent = '不明';
         } else {
-            elm.innerHTML = '不明';
+            elm.textContent = '不明';
         }
-        document.getElementById("cardinfo-hojo-sex").innerHTML = sex;
+        document.getElementById("cardinfo-hojo-sex").textContent = sex;
     }
     if ('cardinfo-mynumber' in data) {
         var mynumber = data['cardinfo-mynumber'];
-        document.getElementById("cardinfo-mynumber-cell-1").innerHTML = htmlEscape(mynumber.substr(0, 4));
-        document.getElementById("cardinfo-mynumber-cell-2").innerHTML = htmlEscape(mynumber.substr(4, 4));
-        document.getElementById("cardinfo-mynumber-cell-3").innerHTML = htmlEscape(mynumber.substr(8, 4));
-        document.getElementById("cardinfo-hojo-mynumber").innerHTML = mynumber;
+        document.getElementById("cardinfo-mynumber-cell-1").textContent = mynumber.substr(0, 4);
+        document.getElementById("cardinfo-mynumber-cell-2").textContent = mynumber.substr(4, 4);
+        document.getElementById("cardinfo-mynumber-cell-3").textContent = mynumber.substr(8, 4);
+        document.getElementById("cardinfo-hojo-mynumber").textContent = mynumber;
     }
     if ('textap-validation-result' in data) {
-        document.getElementById("textap-validation-result").innerHTML = data['textap-validation-result'];
+        document.getElementById("textap-validation-result").textContent = data['textap-validation-result'];
     }
     if ('cardinfo-cert-expire' in data) {
         var certExpire = data['cardinfo-cert-expire'];
         var year = certExpire.substr(0, 4);
         var month = certExpire.substr(4, 2);
         var day = certExpire.substr(6, 2);
-        document.getElementById("cardinfo-cert-expire").innerHTML = htmlEscape(year + "年" + month + "月" + day + "日");
+        document.getElementById("cardinfo-cert-expire").textContent = year + "年" + month + "月" + day + "日";
     }
     if ('cardinfo-expire' in data) {
         var expire = data['cardinfo-expire'];
@@ -103,14 +78,14 @@ function render(json) {
         var expireDate = year + "年" + month + "月" + day + "日";
         expireDate = expireDate.replace(/年0(\d)月/g, '年 $1月')
                                .replace(/月0(\d)日/g, '月 $1日');
-        document.getElementById("cardinfo-expire").innerHTML = htmlEscape(expireDate + "まで有効");
-        document.getElementById("cardinfo-kenmen-expire").innerHTML = expire;
+        document.getElementById("cardinfo-expire").textContent = expireDate + "まで有効";
+        document.getElementById("cardinfo-kenmen-expire").textContent = expire;
     }
     if ('cardinfo-birth2' in data) {
-        document.getElementById("cardinfo-kenmen-birth").innerHTML = data['cardinfo-birth2'];
+        document.getElementById("cardinfo-kenmen-birth").textContent = data['cardinfo-birth2'];
     }
     if ('cardinfo-sex2' in data) {
-        document.getElementById("cardinfo-kenmen-sex").innerHTML = data['cardinfo-sex2'];
+        document.getElementById("cardinfo-kenmen-sex").textContent = data['cardinfo-sex2'];
     }
     if ('cardinfo-photo' in data) {
         document.getElementById("cardinfo-photo").src = data['cardinfo-photo'];
@@ -126,7 +101,7 @@ function render(json) {
         document.getElementById("cardinfo-kenmen-mynumber").src = data['cardinfo-mynumber-image'];
     }
     if ('visualap-validation-result' in data) {
-        document.getElementById("visualap-validation-result").innerHTML = data['visualap-validation-result'];
+        document.getElementById("visualap-validation-result").textContent = data['visualap-validation-result'];
     }
 }
 

@@ -4,81 +4,57 @@ var monthMap = {
     '09': 'SEP', '10': 'OCT', '11': 'NOV', '12': 'DEC'
 }
 
-function addMessage(msg)
-{
-    var area = document.getElementById("msg");
-    if (area) {
-        area.innerHTML += htmlEscape(msg) + '<br/>';
-    }
-}
-
-function clearMessage()
-{
-    var area = document.getElementById("msg");
-    if (area) {
-        area.innerHTML = '';
-    }
-}
-
-function htmlEscape(str) {
-    return str.replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
 function render(json) {
     data = JSON.parse(json);
     if ('ep-type' in data) {
         var type = data['ep-type'].replace(/</g, '');
-        document.getElementById("ep-type").innerHTML = htmlEscape(type);
+        document.getElementById("ep-type").textContent = type;
     }
     if ('ep-issuing-country' in data) {
         var issuerCountry = data['ep-issuing-country'];
-        document.getElementById("ep-issuing-country").innerHTML = htmlEscape(issuerCountry);
+        document.getElementById("ep-issuing-country").textContent = issuerCountry;
     }
     if ('ep-passport-number' in data) {
         var passportNumber = data['ep-passport-number'];
-        document.getElementById("ep-passport-number").innerHTML = htmlEscape(passportNumber);
+        document.getElementById("ep-passport-number").textContent = passportNumber;
     }
     if ('ep-surname' in data) {
-        document.getElementById("ep-surname").innerHTML = htmlEscape(data['ep-surname']);
+        document.getElementById("ep-surname").textContent = data['ep-surname'];
     }
     if ('ep-given-name' in data) {
-        document.getElementById("ep-given-name").innerHTML = htmlEscape(data['ep-given-name']);
+        document.getElementById("ep-given-name").textContent = data['ep-given-name'];
     }
     if ('ep-nationality' in data) {
         if (data['ep-nationality'] == 'JPN') {
-            document.getElementById("ep-nationality").innerHTML = 'JAPAN';
+            document.getElementById("ep-nationality").textContent = 'JAPAN';
         } else {
-            document.getElementById("ep-nationality").innerHTML = htmlEscape(data['ep-nationality']);
+            document.getElementById("ep-nationality").textContent = data['ep-nationality'];
         }
     }
     if ('ep-date-of-birth' in data) {
         var birthYear = data['ep-date-of-birth'].substr(0, 2);
         var birthMonth = data['ep-date-of-birth'].substr(2, 2);
         var birthDay = data['ep-date-of-birth'].substr(4, 2);
-        document.getElementById("ep-date-of-birth").innerHTML
-                = birthDay + "&ensp;" + monthMap[birthMonth] + "&ensp;XX" + birthYear;
+        document.getElementById("ep-date-of-birth").textContent
+                = birthDay + " " + monthMap[birthMonth] + " XX" + birthYear;
     }
     if ('ep-sex' in data) {
-        document.getElementById("ep-sex").innerHTML = htmlEscape(data['ep-sex']);
+        document.getElementById("ep-sex").textContent = data['ep-sex'];
     }
     if ('ep-date-of-expiry' in data) {
         var expiryYear = "20" + data['ep-date-of-expiry'].substr(0, 2);
         var expiryMonth = data['ep-date-of-expiry'].substr(2, 2);
         var expiryDay = data['ep-date-of-expiry'].substr(4, 2);
-        document.getElementById("ep-date-of-expiry").innerHTML
-                = expiryDay + "&ensp;" + monthMap[expiryMonth] + "&ensp;" + expiryYear;
+        document.getElementById("ep-date-of-expiry").textContent
+                = expiryDay + " " + monthMap[expiryMonth] + " " + expiryYear;
         if (passportNumber && issuerCountry == 'JPN') {
             var initial = passportNumber.substr(0, 1);
             if (initial == "M" || initial == "N") {
-                document.getElementById("ep-date-of-issue").innerHTML
-                        = expiryDay + "&ensp;" + monthMap[expiryMonth] + "&ensp;" + (expiryYear - 5);
+                document.getElementById("ep-date-of-issue").textContent
+                        = expiryDay + " " + monthMap[expiryMonth] + " " + (expiryYear - 5);
             } else if (initial == "T") {
-                document.getElementById("ep-date-of-issue").innerHTML
-                        = expiryDay + "&ensp;" + monthMap[expiryMonth] + "&ensp;" + (expiryYear - 10);
+                document.getElementById("ep-date-of-issue").textContent
+                        = expiryDay + " " + monthMap[expiryMonth] + " " + (expiryYear - 10);
             }
         }
     }
