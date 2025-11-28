@@ -12,8 +12,8 @@
     <item name="android:layout_height">match_parent</item>
     <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
     <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
-    <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
-    <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+    <item name="android:paddingTop">@dimen/activity_top_margin</item>
+    <item name="android:paddingBottom">@dimen/activity_bottom_margin</item>
     <item name="android:textColor">@color/colorText</item>
     <item name="android:background">@color/colorBackground</item>
   </style>
