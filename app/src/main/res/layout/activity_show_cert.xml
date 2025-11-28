@@ -5,18 +5,18 @@
     style="@style/AppLayout">
   <TextView
       android:id="@+id/info"
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text=""
       android:textSize="20sp" />
   <TextView
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="カードをタッチしてください。"
       android:textSize="20sp" />
   <TextView
       android:id="@+id/text_pin"
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
       android:text="署名用パスワードを入力しますがデジタル署名操作は行いません。証明書の読み出しのみを行います。\n\nJPKI署名用パスワード(6-16桁)"
@@ -24,7 +24,7 @@
       android:visibility="gone" />
     <EditText
       android:id="@+id/edit_pin"
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
       android:ems="10"
@@ -36,16 +36,16 @@
       tools:ignore="Autofill" />
   <ScrollView
       android:id="@+id/scroll"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:layout_marginTop="8dp">
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
       <TextView
           android:id="@+id/message"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text=""
           android:textSize="18sp" />

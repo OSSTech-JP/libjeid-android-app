@@ -4,28 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppLayout">
   <ScrollView
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
       <TextView
           android:id="@+id/info"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="在留カード等の番号を入力し、カードを読み取り位置にタッチしてください。特別永住者証明書も読み取れます。"
           android:textSize="20sp" />
       <TextView
           android:id="@+id/text_rc_number"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:text="在留カード等の番号"
           android:textSize="20sp" />
       <EditText
           android:id="@+id/edit_rc_number"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:ems="10"
@@ -38,12 +38,12 @@
   </ScrollView>
   <ScrollView
       android:id="@+id/scroll"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:layout_marginTop="8dp">
     <TextView
         android:id="@+id/message"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="12sp" />

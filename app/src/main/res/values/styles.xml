@@ -8,8 +8,8 @@
   </style>
   <style name="AppLayout">
     <item name="android:orientation">vertical</item>
-    <item name="android:layout_width">fill_parent</item>
-    <item name="android:layout_height">fill_parent</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
     <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
     <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
     <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
@@ -20,7 +20,7 @@
   <style name="MenuButton">
     <item name="android:textColor">@color/colorText</item>
     <item name="android:background">@drawable/button_background</item>
-    <item name="android:layout_width">fill_parent</item>
+    <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textSize">24sp</item>
     <item name="android:layout_marginTop">8dp</item>

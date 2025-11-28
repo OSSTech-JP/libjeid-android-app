@@ -4,28 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppLayout">
   <ScrollView
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
       <TextView
           android:id="@+id/info"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="JPKI署名用鍵で署名します。パスワードを入力してカードをタッチしてください。"
           android:textSize="20sp" />
       <TextView
           android:id="@+id/text_pin"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:text="JPKI署名用パスワード(6-16桁))"
           android:textSize="20sp" />
       <EditText
           android:id="@+id/edit_pin"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:ems="10"
@@ -35,7 +35,7 @@
           android:hint="@null"
           tools:ignore="Autofill" />
       <LinearLayout
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:orientation="horizontal">
@@ -61,12 +61,12 @@
   </ScrollView>
   <ScrollView
       android:id="@+id/scroll"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:layout_marginTop="8dp">
     <TextView
         android:id="@+id/message"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="12sp" />

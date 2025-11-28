@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppLayout">
   <ScrollView
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
       <TextView
           android:id="@+id/info"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="旅券番号、生年月日、有効期限を入力し、パスポートを読み取り位置にタッチしてください。"
           android:textSize="20sp" />
       <LinearLayout
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:gravity="end" >
@@ -30,14 +30,14 @@
       </LinearLayout>
       <TextView
           android:id="@+id/text_ep_passport_number"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:text="旅券番号(9桁)"
           android:textSize="20sp" />
       <EditText
           android:id="@+id/edit_ep_passport_number"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:ems="10"
@@ -49,14 +49,14 @@
           />
       <TextView
           android:id="@+id/text_ep_birth_date"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:text="生年月日(8桁)"
           android:textSize="20sp" />
       <EditText
           android:id="@+id/edit_ep_birth_date"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:ems="10"
@@ -67,14 +67,14 @@
           tools:ignore="Autofill" />
       <TextView
           android:id="@+id/text_ep_expire_date"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:text="有効期限(8桁)"
           android:textSize="20sp" />
       <EditText
           android:id="@+id/edit_ep_expire_date"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:ems="10"
@@ -87,12 +87,12 @@
   </ScrollView>
   <ScrollView
       android:id="@+id/scroll"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:layout_marginTop="8dp">
     <TextView
         android:id="@+id/message"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="12sp" />

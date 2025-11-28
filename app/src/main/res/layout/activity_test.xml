@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppLayout">
   <LinearLayout
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
     <TextView
         android:id="@+id/info"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="カードをタッチしてテスト開始。"
         android:textSize="20sp" />
     <TextView
         android:id="@+id/text_jpki_auth_pin"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="JPKI認証用PINと券面PIN(4桁)"
         android:textSize="20sp" />
     <EditText
         android:id="@+id/edit_jpki_auth_pin"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -33,14 +33,14 @@
         tools:ignore="Autofill" />
     <TextView
         android:id="@+id/text_jpki_sign_pin"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="JPKI署名用PIN(6-16桁)"
         android:textSize="20sp" />
     <EditText
         android:id="@+id/edit_jpki_sign_pin"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -52,12 +52,12 @@
   </LinearLayout>
   <ScrollView
       android:id="@+id/scroll"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:layout_marginTop="8dp">
     <TextView
         android:id="@+id/message"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="12sp" />
