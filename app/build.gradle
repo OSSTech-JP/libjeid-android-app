@@ -11,7 +11,7 @@ android {
         applicationId "jp.co.osstech.jeidreader"
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 53
+        versionCode 54
         versionName "1.0." + versionCode
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
