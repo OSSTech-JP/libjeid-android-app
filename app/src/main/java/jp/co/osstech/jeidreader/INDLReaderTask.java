@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
@@ -28,21 +29,28 @@ public class INDLReaderTask
     private static final String DPIN = "****";
     private Tag nfcTag;
     private String pin;
-    private INDLReaderActivity activity;
+    private final WeakReference<INDLReaderActivity> activityRef;
 
     public INDLReaderTask(INDLReaderActivity activity, Tag nfcTag, String pin) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.pin = pin;
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        INDLReaderActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        this.activity.clear();
+        INDLReaderActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
+        activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 
         if (pin.isEmpty()) {

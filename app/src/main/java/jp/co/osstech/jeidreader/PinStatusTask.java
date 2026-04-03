@@ -2,6 +2,7 @@ package jp.co.osstech.jeidreader;
 
 import android.nfc.Tag;
 import android.util.Log;
+import java.lang.ref.WeakReference;
 import jp.co.osstech.libjeid.CardType;
 import jp.co.osstech.libjeid.DriverLicenseAP;
 import jp.co.osstech.libjeid.INTextAP;
@@ -16,22 +17,29 @@ public class PinStatusTask
     implements Runnable
 {
     private static final String TAG = MainActivity.TAG;
-    private PinStatusActivity activity;
+    private final WeakReference<PinStatusActivity> activityRef;
     private Tag nfcTag;
 
     public PinStatusTask(PinStatusActivity activity,
                          Tag nfcTag) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        PinStatusActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        this.activity.clear();
+        PinStatusActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
+        activity.clear();
         ProgressDialogFragment progress = new ProgressDialogFragment();
         activity.runOnUiThread(() -> {
             progress.show(activity.getSupportFragmentManager(), "progress");

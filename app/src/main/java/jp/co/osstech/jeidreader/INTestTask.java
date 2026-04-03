@@ -2,6 +2,7 @@ package jp.co.osstech.jeidreader;
 
 import android.nfc.Tag;
 import android.util.Log;
+import java.lang.ref.WeakReference;
 import java.io.IOException;
 import java.security.PublicKey;
 import java.security.Signature;
@@ -13,25 +14,32 @@ public class INTestTask
     implements Runnable
 {
     private static final String TAG = MainActivity.TAG;
-    private INTestActivity activity;
+    private final WeakReference<INTestActivity> activityRef;
     private Tag nfcTag;
     private String authPin;
     private String signPin;
 
     public INTestTask(INTestActivity activity, Tag nfcTag,
                       String authPin, String signPin) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.authPin = authPin;
         this.signPin = signPin;
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        INTestActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
+        INTestActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
         activity.clear();
         publishProgress("# テスト開始、カードを離さないでください");
 

@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -31,22 +32,29 @@ public class INReaderTask
     implements Runnable
 {
     private static final String TAG = MainActivity.TAG;
-    private INReaderActivity activity;
+    private final WeakReference<INReaderActivity> activityRef;
     private Tag nfcTag;
     private String pin;
 
     public INReaderTask(INReaderActivity activity, Tag nfcTag, String pin) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.pin = pin;
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        INReaderActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
+        INReaderActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
         activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 

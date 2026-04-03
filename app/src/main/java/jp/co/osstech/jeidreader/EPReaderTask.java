@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.io.IOException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
@@ -27,7 +28,7 @@ public class EPReaderTask
     implements Runnable
 {
     private static final String TAG = MainActivity.TAG;
-    private EPReaderActivity activity;
+    private final WeakReference<EPReaderActivity> activityRef;
     private Tag nfcTag;
     private String passportNumber;
     private String birthDate;
@@ -38,7 +39,7 @@ public class EPReaderTask
                         String passportNumber,
                         String birthDate,
                         String expireDate) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.passportNumber = passportNumber;
         this.birthDate = birthDate;
@@ -46,12 +47,19 @@ public class EPReaderTask
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        EPReaderActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        this.activity.clear();
+        EPReaderActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
+        activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 
         if (passportNumber.isEmpty()) {

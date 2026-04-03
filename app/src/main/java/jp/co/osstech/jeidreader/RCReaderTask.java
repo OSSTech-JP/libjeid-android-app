@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import jp.co.osstech.libjeid.CardType;
 import jp.co.osstech.libjeid.InvalidACKeyException;
 import jp.co.osstech.libjeid.JeidReader;
@@ -22,22 +23,29 @@ public class RCReaderTask
     implements Runnable
 {
     private static final String TAG = MainActivity.TAG;
-    private RCReaderActivity activity;
+    private final WeakReference<RCReaderActivity> activityRef;
     private Tag nfcTag;
     private String rcNumber;
 
     public RCReaderTask(RCReaderActivity activity, Tag nfcTag, String rcNumber) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.rcNumber = rcNumber;
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        RCReaderActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
+        RCReaderActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
         activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 

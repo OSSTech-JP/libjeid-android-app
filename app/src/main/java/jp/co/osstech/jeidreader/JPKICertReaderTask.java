@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.nfc.Tag;
 import android.util.Log;
 import java.security.MessageDigest;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -31,27 +32,34 @@ public class JPKICertReaderTask
     implements Runnable
 {
     private static final String TAG = MainActivity.TAG;
-    private JPKICertReaderActivity activity;
+    private final WeakReference<JPKICertReaderActivity> activityRef;
     private Tag nfcTag;
     private String type;
     private String password;
 
     public JPKICertReaderTask(JPKICertReaderActivity activity, Tag nfcTag,
                               String type, String password) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.type = type;
         this.password = password;
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        JPKICertReaderActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     @Override
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        this.activity.clear();
+        JPKICertReaderActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
+        activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 
         // 読み取り中ダイアログを表示

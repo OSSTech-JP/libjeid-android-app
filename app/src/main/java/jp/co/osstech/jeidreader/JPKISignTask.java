@@ -9,6 +9,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.Signature;
@@ -23,7 +24,7 @@ public class JPKISignTask
     implements Runnable
 {
     private static final String TAG = MainActivity.TAG;
-    private JPKISignActivity activity;
+    private final WeakReference<JPKISignActivity> activityRef;
     private Tag nfcTag;
     private String pin;
     private byte[] input;
@@ -31,7 +32,7 @@ public class JPKISignTask
 
     public JPKISignTask(JPKISignActivity activity, Tag nfcTag,
                         String pin, byte[] input, String signAlgo) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.pin = pin;
         this.input = input;
@@ -39,7 +40,10 @@ public class JPKISignTask
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        JPKISignActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     private void outputFile(JPKISignActivity activity, String filename, byte[] data)
@@ -55,6 +59,10 @@ public class JPKISignTask
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
+        JPKISignActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
         activity.clear();
 
         int type = activity.getType();

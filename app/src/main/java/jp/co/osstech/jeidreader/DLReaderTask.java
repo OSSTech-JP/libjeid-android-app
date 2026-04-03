@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
@@ -29,25 +30,32 @@ public class DLReaderTask
     private Tag nfcTag;
     private String pin1;
     private String pin2;
-    private DLReaderActivity activity;
+    private final WeakReference<DLReaderActivity> activityRef;
 
     public DLReaderTask(DLReaderActivity activity,
                         Tag nfcTag,
                         String pin1,
                         String pin2) {
-        this.activity = activity;
+        this.activityRef = new WeakReference<>(activity);
         this.nfcTag = nfcTag;
         this.pin1 = pin1;
         this.pin2 = pin2;
     }
 
     private void publishProgress(String msg) {
-        this.activity.print(msg);
+        DLReaderActivity activity = activityRef.get();
+        if (activity != null) {
+            activity.print(msg);
+        }
     }
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        this.activity.clear();
+        DLReaderActivity activity = activityRef.get();
+        if (activity == null) {
+            return;
+        }
+        activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 
         if (pin1.isEmpty()) {
