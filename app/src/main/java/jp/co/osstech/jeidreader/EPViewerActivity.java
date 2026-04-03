@@ -20,8 +20,8 @@ public class EPViewerActivity
     private String json;
 
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_ep_viewer);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ep_viewer);
 
         Intent intent = getIntent();
         json = intent.getStringExtra("json");

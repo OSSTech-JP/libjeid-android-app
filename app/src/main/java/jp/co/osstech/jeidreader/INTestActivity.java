@@ -14,8 +14,8 @@ public class INTestActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_test);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test);
         this.enableNFC = true;
 
         editAuthPin = (EditText)findViewById(R.id.edit_jpki_auth_pin);

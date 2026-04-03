@@ -13,8 +13,8 @@ public class RCReaderActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_rc_reader);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rc_reader);
         this.enableNFC = true;
         rcNumber = (EditText)findViewById(R.id.edit_rc_number);
     }

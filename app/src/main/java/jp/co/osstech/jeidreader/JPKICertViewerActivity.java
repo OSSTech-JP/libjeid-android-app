@@ -19,8 +19,8 @@ public class JPKICertViewerActivity
     private String json;
 
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_show_cert_viewer);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_show_cert_viewer);
 
         Intent intent = getIntent();
         json = intent.getStringExtra("json");

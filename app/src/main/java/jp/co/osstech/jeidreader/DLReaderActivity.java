@@ -16,8 +16,8 @@ public class DLReaderActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_dl_reader);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dl_reader);
         this.enableNFC = true;
         editPin1 = (EditText)findViewById(R.id.edit_dl_pin1);
         editPin2 = (EditText)findViewById(R.id.edit_dl_pin2);

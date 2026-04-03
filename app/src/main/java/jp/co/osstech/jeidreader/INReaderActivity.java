@@ -16,8 +16,8 @@ public class INReaderActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_in_reader);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_in_reader);
         this.enableNFC = true;
         EditText editPin = findViewById(R.id.edit_pin);
     }

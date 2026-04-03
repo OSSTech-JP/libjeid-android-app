@@ -18,8 +18,8 @@ public class INMenuActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_in_menu);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_in_menu);
 
         findViewById(R.id.cardinfo_button).setOnClickListener(this);
         findViewById(R.id.selectcert_button).setOnClickListener(this);

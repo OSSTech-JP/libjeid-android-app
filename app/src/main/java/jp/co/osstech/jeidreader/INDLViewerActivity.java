@@ -20,8 +20,8 @@ public class INDLViewerActivity
     private String json;
 
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_in_viewer);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_in_viewer);
 
         Intent intent = getIntent();
         json = intent.getStringExtra("json");

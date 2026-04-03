@@ -22,8 +22,8 @@ public class EPReaderActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_ep_reader);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ep_reader);
         this.enableNFC = true;
         passportNumber = (EditText)findViewById(R.id.edit_ep_passport_number);
         birthDate = (EditText)findViewById(R.id.edit_ep_birth_date);

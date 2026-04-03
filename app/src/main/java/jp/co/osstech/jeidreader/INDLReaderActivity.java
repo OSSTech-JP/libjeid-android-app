@@ -15,8 +15,8 @@ public class INDLReaderActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_indl_reader);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_indl_reader);
         this.enableNFC = true;
         editPin = (EditText)findViewById(R.id.edit_indl_pin);
     }
