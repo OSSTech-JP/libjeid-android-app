@@ -30,9 +30,10 @@ public class INDLReaderTask
     private String pin;
     private INDLReaderActivity activity;
 
-    public INDLReaderTask(INDLReaderActivity activity, Tag nfcTag) {
+    public INDLReaderTask(INDLReaderActivity activity, Tag nfcTag, String pin) {
         this.activity = activity;
         this.nfcTag = nfcTag;
+        this.pin = pin;
     }
 
     private void publishProgress(String msg) {
@@ -42,12 +43,18 @@ public class INDLReaderTask
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
         this.activity.clear();
-        pin = activity.getPin();
-        activity.hideKeyboard();
         publishProgress("# 読み取り開始、カードを離さないでください");
+
+        if (pin.isEmpty()) {
+            publishProgress("暗証番号を入力してください");
+            return;
+        }
+
         // 読み取り中ダイアログを表示
         ProgressDialogFragment progress = new ProgressDialogFragment();
-        progress.show(activity.getSupportFragmentManager(), "progress");
+        activity.runOnUiThread(() -> {
+            progress.show(activity.getSupportFragmentManager(), "progress");
+        });
 
         try {
             JeidReader reader = new JeidReader(this.nfcTag);
@@ -62,11 +69,6 @@ public class INDLReaderTask
             DLPinSetting pinSetting = ap.readPinSetting();
             publishProgress("## 暗証番号(PIN)設定");
             publishProgress(pinSetting.toString());
-
-            if (pin.isEmpty()) {
-                publishProgress("暗証番号を入力してください");
-                return;
-            }
 
             if (!pinSetting.isPinSet()) {
                 publishProgress("暗証番号設定がfalseのため、デフォルトPINの「****」を暗証番号として使用します\n");
@@ -144,7 +146,9 @@ public class INDLReaderTask
             Log.e(TAG, "error", e);
             publishProgress("エラー: " + e);
         } finally {
-            progress.dismissAllowingStateLoss();
+            activity.runOnUiThread(() -> {
+                progress.dismissAllowingStateLoss();
+            });
         }
     }
 }

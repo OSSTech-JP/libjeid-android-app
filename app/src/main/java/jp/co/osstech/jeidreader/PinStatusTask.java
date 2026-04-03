@@ -33,7 +33,9 @@ public class PinStatusTask
         Log.d(TAG, getClass().getSimpleName() + "#run()");
         this.activity.clear();
         ProgressDialogFragment progress = new ProgressDialogFragment();
-        progress.show(activity.getSupportFragmentManager(), "progress");
+        activity.runOnUiThread(() -> {
+            progress.show(activity.getSupportFragmentManager(), "progress");
+        });
         try {
             JeidReader reader = new JeidReader(this.nfcTag);
             int counter;
@@ -103,6 +105,8 @@ public class PinStatusTask
             Log.e(TAG, "error at " + getClass().getSimpleName(), e);
             publishProgress(e.toString());
         }
-        progress.dismissAllowingStateLoss();
+        activity.runOnUiThread(() -> {
+            progress.dismissAllowingStateLoss();
+        });
     }
 }

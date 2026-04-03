@@ -73,9 +73,15 @@ public class EPReaderActivity
             Log.d(TAG, getClass().getSimpleName() + ": NFC disabled.");
             return;
         }
-        EPReaderTask task = new EPReaderTask(this, tag);
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.submit(task);
+        runOnUiThread(() -> {
+            String passportNum = getPassportNumber();
+            String birth = getBirthDate();
+            String expire = getExpireDate();
+            hideKeyboard();
+            EPReaderTask task = new EPReaderTask(this, tag, passportNum, birth, expire);
+            ExecutorService exec = Executors.newSingleThreadExecutor();
+            exec.submit(task);
+        });
     }
 
     protected String getPassportNumber() {

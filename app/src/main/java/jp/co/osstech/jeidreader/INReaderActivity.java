@@ -31,9 +31,13 @@ public class INReaderActivity
             Log.d(TAG, getClass().getSimpleName() + ": NFC disabled.");
             return;
         }
-        INReaderTask task = new INReaderTask(this, tag);
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.submit(task);
+        runOnUiThread(() -> {
+            String pin = getPin();
+            hideKeyboard();
+            INReaderTask task = new INReaderTask(this, tag, pin);
+            ExecutorService exec = Executors.newSingleThreadExecutor();
+            exec.submit(task);
+        });
     }
 
     protected void showInvalidPinDialog(InvalidPinException e) {

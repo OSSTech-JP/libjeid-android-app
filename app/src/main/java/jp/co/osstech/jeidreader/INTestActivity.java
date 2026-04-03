@@ -32,9 +32,14 @@ public class INTestActivity
             Log.d(TAG, getClass().getSimpleName() + ": NFC disabled.");
             return;
         }
-        INTestTask task = new INTestTask(this, tag);
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.submit(task);
+        runOnUiThread(() -> {
+            String authPin = getAuthPin();
+            String signPin = getSignPin();
+            hideKeyboard();
+            INTestTask task = new INTestTask(this, tag, authPin, signPin);
+            ExecutorService exec = Executors.newSingleThreadExecutor();
+            exec.submit(task);
+        });
     }
 
     protected String getAuthPin() {

@@ -62,9 +62,13 @@ public class JPKICertReaderActivity
             return;
         }
 
-        JPKICertReaderTask task = new JPKICertReaderTask(this, tag, type);
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.submit(task);
+        runOnUiThread(() -> {
+            String password = "SIGN".equals(type) ? getPassword() : "";
+            hideKeyboard();
+            JPKICertReaderTask task = new JPKICertReaderTask(this, tag, type, password);
+            ExecutorService exec = Executors.newSingleThreadExecutor();
+            exec.submit(task);
+        });
     }
 
     protected void showInvalidPasswordDialog(InvalidPinException e) {

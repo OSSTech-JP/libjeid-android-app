@@ -26,9 +26,10 @@ public class RCReaderTask
     private Tag nfcTag;
     private String rcNumber;
 
-    public RCReaderTask(RCReaderActivity activity, Tag nfcTag) {
+    public RCReaderTask(RCReaderActivity activity, Tag nfcTag, String rcNumber) {
         this.activity = activity;
         this.nfcTag = nfcTag;
+        this.rcNumber = rcNumber;
     }
 
     private void publishProgress(String msg) {
@@ -37,12 +38,18 @@ public class RCReaderTask
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        rcNumber = activity.getRcNumber();
-        activity.hideKeyboard();
         activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
+
+        if (rcNumber.isEmpty()) {
+            publishProgress("在留カード番号または特別永住者証明書番号を設定してください");
+            return;
+        }
+
         ProgressDialogFragment progress = new ProgressDialogFragment();
-        progress.show(activity.getSupportFragmentManager(), "progress");
+        activity.runOnUiThread(() -> {
+            progress.show(activity.getSupportFragmentManager(), "progress");
+        });
         long start = System.currentTimeMillis();
         try {
             JeidReader reader = new JeidReader(nfcTag);
@@ -58,11 +65,6 @@ public class RCReaderTask
             publishProgress("commonData: " + commonData);
             RCCardType cardType = ap.readCardType();
             publishProgress("cardType: " + cardType);
-
-            if (rcNumber.isEmpty()) {
-                publishProgress("在留カード番号または特別永住者証明書番号を設定してください");
-                return;
-            }
             RCKey rckey = new RCKey(rcNumber);
             publishProgress("## セキュアメッセージング用の鍵交換&認証");
             try {
@@ -136,7 +138,9 @@ public class RCReaderTask
             Log.e(TAG, "error", e);
             publishProgress("エラー: " + e);
         } finally {
-            progress.dismissAllowingStateLoss();
+            activity.runOnUiThread(() -> {
+                progress.dismissAllowingStateLoss();
+            });
         }
     }
 }

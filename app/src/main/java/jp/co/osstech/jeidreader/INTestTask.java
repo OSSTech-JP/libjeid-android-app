@@ -18,9 +18,12 @@ public class INTestTask
     private String authPin;
     private String signPin;
 
-    public INTestTask(INTestActivity activity, Tag nfcTag) {
+    public INTestTask(INTestActivity activity, Tag nfcTag,
+                      String authPin, String signPin) {
         this.activity = activity;
         this.nfcTag = nfcTag;
+        this.authPin = authPin;
+        this.signPin = signPin;
     }
 
     private void publishProgress(String msg) {
@@ -29,11 +32,8 @@ public class INTestTask
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        activity.hideKeyboard();
         activity.clear();
         publishProgress("# テスト開始、カードを離さないでください");
-        authPin = activity.getAuthPin();
-        signPin = activity.getSignPin();
 
         if (authPin.isEmpty()) {
             publishProgress("暗証番号を設定してください");

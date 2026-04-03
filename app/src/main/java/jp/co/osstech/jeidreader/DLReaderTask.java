@@ -32,9 +32,13 @@ public class DLReaderTask
     private DLReaderActivity activity;
 
     public DLReaderTask(DLReaderActivity activity,
-                        Tag nfcTag) {
+                        Tag nfcTag,
+                        String pin1,
+                        String pin2) {
         this.activity = activity;
         this.nfcTag = nfcTag;
+        this.pin1 = pin1;
+        this.pin2 = pin2;
     }
 
     private void publishProgress(String msg) {
@@ -44,13 +48,18 @@ public class DLReaderTask
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
         this.activity.clear();
-        pin1 = activity.getPin1();
-        pin2 = activity.getPin2();
-        activity.hideKeyboard();
         publishProgress("# 読み取り開始、カードを離さないでください");
+
+        if (pin1.isEmpty()) {
+            publishProgress("暗証番号1を入力してください");
+            return;
+        }
+
         // 読み取り中ダイアログを表示
         ProgressDialogFragment progress = new ProgressDialogFragment();
-        progress.show(activity.getSupportFragmentManager(), "progress");
+        activity.runOnUiThread(() -> {
+            progress.show(activity.getSupportFragmentManager(), "progress");
+        });
 
         try {
             JeidReader reader = new JeidReader(this.nfcTag);
@@ -70,11 +79,6 @@ public class DLReaderTask
             DLPinSetting pinSetting = ap.readPinSetting();
             publishProgress("## 暗証番号(PIN)設定");
             publishProgress(pinSetting.toString());
-
-            if (pin1.isEmpty()) {
-                publishProgress("暗証番号1を入力してください");
-                return;
-            }
             if (!pinSetting.isPinSet()) {
                 publishProgress("暗証番号(PIN)設定がfalseのため、デフォルトPINの「****」を暗証番号として使用します\n");
                 pin1 = DPIN;
@@ -272,7 +276,9 @@ public class DLReaderTask
             Log.e(TAG, "error", e);
             publishProgress("エラー: " + e);
         } finally {
-            progress.dismissAllowingStateLoss();
+            activity.runOnUiThread(() -> {
+                progress.dismissAllowingStateLoss();
+            });
         }
     }
 }

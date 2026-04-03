@@ -36,7 +36,7 @@ public abstract class BaseActivity
     // ビューアーやメニュー画面ではNFC読み取りを無効化する
     // また、PIN間違いが発生してダイヤログを表示している間に
     // 連続読み取りが発生することを防ぐためのフラグ
-    protected boolean enableNFC = false;
+    protected volatile boolean enableNFC = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,9 @@ public abstract class BaseActivity
     // サブクラスの**ReaderActivityでは適時overrideします
     public void onTagDiscovered(final Tag tag) {
         Log.d(TAG, getClass().getSimpleName() + "#onTagDiscovered()");
-        Toast.makeText(this, "ビューアを閉じてください", Toast.LENGTH_LONG).show();
+        runOnUiThread(() -> {
+            Toast.makeText(this, "ビューアを閉じてください", Toast.LENGTH_LONG).show();
+        });
     }
 
     @Override

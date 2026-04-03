@@ -29,9 +29,13 @@ public class RCReaderActivity
             Log.d(TAG, getClass().getSimpleName() + ": NFC disabled.");
             return;
         }
-        RCReaderTask task = new RCReaderTask(this, tag);
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.submit(task);
+        runOnUiThread(() -> {
+            String rcNum = getRcNumber();
+            hideKeyboard();
+            RCReaderTask task = new RCReaderTask(this, tag, rcNum);
+            ExecutorService exec = Executors.newSingleThreadExecutor();
+            exec.submit(task);
+        });
     }
 
     protected String getRcNumber() {

@@ -27,10 +27,15 @@ public class JPKISignTask
     private Tag nfcTag;
     private String pin;
     private byte[] input;
+    private String signAlgo;
 
-    public JPKISignTask(JPKISignActivity activity, Tag nfcTag) {
+    public JPKISignTask(JPKISignActivity activity, Tag nfcTag,
+                        String pin, byte[] input, String signAlgo) {
         this.activity = activity;
         this.nfcTag = nfcTag;
+        this.pin = pin;
+        this.input = input;
+        this.signAlgo = signAlgo;
     }
 
     private void publishProgress(String msg) {
@@ -50,12 +55,8 @@ public class JPKISignTask
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        pin = activity.getPin();
-        input = activity.getText().getBytes();
-        activity.hideKeyboard();
         activity.clear();
 
-        String signAlgo = activity.getSignAlgo();
         int type = activity.getType();
 
         if (type == JPKIAP.TYPE_AUTH) {

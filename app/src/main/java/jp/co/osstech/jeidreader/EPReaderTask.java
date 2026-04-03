@@ -34,9 +34,15 @@ public class EPReaderTask
     private String expireDate;
 
     public EPReaderTask(EPReaderActivity activity,
-                        Tag nfcTag) {
+                        Tag nfcTag,
+                        String passportNumber,
+                        String birthDate,
+                        String expireDate) {
         this.activity = activity;
         this.nfcTag = nfcTag;
+        this.passportNumber = passportNumber;
+        this.birthDate = birthDate;
+        this.expireDate = expireDate;
     }
 
     private void publishProgress(String msg) {
@@ -46,12 +52,6 @@ public class EPReaderTask
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
         this.activity.clear();
-        activity.hideKeyboard();
-
-        passportNumber = activity.getPassportNumber();
-        birthDate = activity.getBirthDate();
-        expireDate = activity.getExpireDate();
-
         publishProgress("# 読み取り開始、カードを離さないでください");
 
         if (passportNumber.isEmpty()) {
@@ -89,7 +89,9 @@ public class EPReaderTask
         }
 
         ProgressDialogFragment progress = new ProgressDialogFragment();
-        progress.show(activity.getSupportFragmentManager(), "progress");
+        activity.runOnUiThread(() -> {
+            progress.show(activity.getSupportFragmentManager(), "progress");
+        });
 
         long start = System.currentTimeMillis();
         try {
@@ -179,7 +181,9 @@ public class EPReaderTask
             Log.e(TAG, "error", e);
             publishProgress("エラー: " + e);
         } finally {
-            progress.dismissAllowingStateLoss();
+            activity.runOnUiThread(() -> {
+                progress.dismissAllowingStateLoss();
+            });
         }
     }
 }

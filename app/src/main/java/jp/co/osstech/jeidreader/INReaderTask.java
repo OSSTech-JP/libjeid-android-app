@@ -35,9 +35,10 @@ public class INReaderTask
     private Tag nfcTag;
     private String pin;
 
-    public INReaderTask(INReaderActivity activity, Tag nfcTag) {
+    public INReaderTask(INReaderActivity activity, Tag nfcTag, String pin) {
         this.activity = activity;
         this.nfcTag = nfcTag;
+        this.pin = pin;
     }
 
     private void publishProgress(String msg) {
@@ -46,10 +47,8 @@ public class INReaderTask
 
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
-        publishProgress("# 読み取り開始、カードを離さないでください");
-        activity.hideKeyboard();
         activity.clear();
-        pin = activity.getPin();
+        publishProgress("# 読み取り開始、カードを離さないでください");
 
         if (pin.isEmpty() || pin.length() != 4) {
             publishProgress("4桁の暗証番号を入力してください。");
@@ -57,7 +56,9 @@ public class INReaderTask
         }
 
         ProgressDialogFragment progress = new ProgressDialogFragment();
-        progress.show(activity.getSupportFragmentManager(), "progress");
+        activity.runOnUiThread(() -> {
+            progress.show(activity.getSupportFragmentManager(), "progress");
+        });
 
         try {
             long startTime = System.currentTimeMillis();
@@ -172,7 +173,9 @@ public class INReaderTask
             Log.e(TAG, getClass().getSimpleName() + "#run()", e);
             publishProgress("エラー: " + e);
         } finally {
-            progress.dismissAllowingStateLoss();
+            activity.runOnUiThread(() -> {
+                progress.dismissAllowingStateLoss();
+            });
         }
     }
 }

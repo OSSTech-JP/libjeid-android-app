@@ -27,7 +27,9 @@ public class PinStatusActivity
             Log.d(TAG, getClass().getSimpleName() + ": NFC disabled.");
             return;
         }
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.submit(new PinStatusTask(this, tag));
+        runOnUiThread(() -> {
+            ExecutorService exec = Executors.newSingleThreadExecutor();
+            exec.submit(new PinStatusTask(this, tag));
+        });
     }
 }

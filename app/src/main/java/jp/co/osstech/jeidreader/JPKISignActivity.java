@@ -39,9 +39,15 @@ public class JPKISignActivity
             Log.d(TAG, getClass().getSimpleName() + ": NFC disabled.");
             return;
         }
-        JPKISignTask task = new JPKISignTask(this, tag);
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.submit(task);
+        runOnUiThread(() -> {
+            String pin = getPin();
+            byte[] input = getText().getBytes();
+            String signAlgo = getSignAlgo();
+            hideKeyboard();
+            JPKISignTask task = new JPKISignTask(this, tag, pin, input, signAlgo);
+            ExecutorService exec = Executors.newSingleThreadExecutor();
+            exec.submit(task);
+        });
     }
 
     protected int getType() {

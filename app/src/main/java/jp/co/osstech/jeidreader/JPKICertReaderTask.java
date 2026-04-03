@@ -34,11 +34,14 @@ public class JPKICertReaderTask
     private JPKICertReaderActivity activity;
     private Tag nfcTag;
     private String type;
+    private String password;
 
-    public JPKICertReaderTask(JPKICertReaderActivity activity, Tag nfcTag, String type) {
+    public JPKICertReaderTask(JPKICertReaderActivity activity, Tag nfcTag,
+                              String type, String password) {
         this.activity = activity;
         this.nfcTag = nfcTag;
         this.type = type;
+        this.password = password;
     }
 
     private void publishProgress(String msg) {
@@ -49,12 +52,13 @@ public class JPKICertReaderTask
     public void run() {
         Log.d(TAG, getClass().getSimpleName() + "#run()");
         this.activity.clear();
-        this.activity.hideKeyboard();
         publishProgress("# 読み取り開始、カードを離さないでください");
 
         // 読み取り中ダイアログを表示
         ProgressDialogFragment progress = new ProgressDialogFragment();
-        progress.show(activity.getSupportFragmentManager(), "progress");
+        activity.runOnUiThread(() -> {
+            progress.show(activity.getSupportFragmentManager(), "progress");
+        });
 
         try {
             JeidReader reader = new JeidReader(nfcTag);
@@ -68,7 +72,6 @@ public class JPKICertReaderTask
                 cert = jpkiAP.getAuthCACert();
                 break;
             case "SIGN":
-                String password = activity.getPassword();
                 if (password.isEmpty()) {
                     publishProgress("パスワードを入力してください。");
                     return;
@@ -238,7 +241,9 @@ public class JPKICertReaderTask
             publishProgress("エラー: カードを読み取れませんでした" + e.getMessage());
             return;
         } finally {
-            progress.dismissAllowingStateLoss();
+            activity.runOnUiThread(() -> {
+                progress.dismissAllowingStateLoss();
+            });
         }
     }
 
