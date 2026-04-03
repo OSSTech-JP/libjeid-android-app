@@ -32,6 +32,10 @@ public class INReaderActivity
         runOnUiThread(() -> {
             String pin = getPin();
             hideKeyboard();
+            if (!pin.matches("\\d{4}")) {
+                showDialog("入力エラー", "暗証番号は4桁の数字を入力してください。");
+                return;
+            }
             INReaderTask task = new INReaderTask(this, tag, pin);
             exec.submit(task);
         });

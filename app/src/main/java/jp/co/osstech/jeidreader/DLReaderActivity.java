@@ -34,6 +34,14 @@ public class DLReaderActivity
             String pin1 = getPin1();
             String pin2 = getPin2();
             hideKeyboard();
+            if (!pin1.matches("\\d{4}")) {
+                showDialog("入力エラー", "暗証番号1は4桁の数字を入力してください。");
+                return;
+            }
+            if (!pin2.isEmpty() && !pin2.matches("\\d{4}")) {
+                showDialog("入力エラー", "暗証番号2は4桁の数字を入力してください。");
+                return;
+            }
             DLReaderTask task = new DLReaderTask(this, tag, pin1, pin2);
             exec.submit(task);
         });
