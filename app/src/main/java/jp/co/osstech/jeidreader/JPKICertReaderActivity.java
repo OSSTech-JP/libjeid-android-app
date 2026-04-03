@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import jp.co.osstech.libjeid.InvalidPinException;
 import org.json.JSONObject;
 
@@ -66,7 +63,6 @@ public class JPKICertReaderActivity
             String password = "SIGN".equals(type) ? getPassword() : "";
             hideKeyboard();
             JPKICertReaderTask task = new JPKICertReaderTask(this, tag, type, password);
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(task);
         });
     }

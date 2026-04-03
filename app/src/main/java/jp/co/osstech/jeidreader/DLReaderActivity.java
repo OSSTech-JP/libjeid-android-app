@@ -6,8 +6,6 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import jp.co.osstech.libjeid.InvalidPinException;
 
 public class DLReaderActivity
@@ -37,7 +35,6 @@ public class DLReaderActivity
             String pin2 = getPin2();
             hideKeyboard();
             DLReaderTask task = new DLReaderTask(this, tag, pin1, pin2);
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(task);
         });
     }

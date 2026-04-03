@@ -6,9 +6,6 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class INTestActivity
     extends BaseActivity
 {
@@ -37,7 +34,6 @@ public class INTestActivity
             String signPin = getSignPin();
             hideKeyboard();
             INTestTask task = new INTestTask(this, tag, authPin, signPin);
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(task);
         });
     }

@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class EPReaderActivity
     extends BaseActivity
@@ -79,7 +77,6 @@ public class EPReaderActivity
             String expire = getExpireDate();
             hideKeyboard();
             EPReaderTask task = new EPReaderTask(this, tag, passportNum, birth, expire);
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(task);
         });
     }

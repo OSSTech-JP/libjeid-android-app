@@ -8,8 +8,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import jp.co.osstech.libjeid.InvalidPinException;
 
 public class INReaderActivity
@@ -35,7 +33,6 @@ public class INReaderActivity
             String pin = getPin();
             hideKeyboard();
             INReaderTask task = new INReaderTask(this, tag, pin);
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(task);
         });
     }

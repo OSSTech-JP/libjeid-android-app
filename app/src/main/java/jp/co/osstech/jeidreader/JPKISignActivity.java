@@ -8,8 +8,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import jp.co.osstech.libjeid.JPKIAP;
 
 public class JPKISignActivity
@@ -45,7 +43,6 @@ public class JPKISignActivity
             String signAlgo = getSignAlgo();
             hideKeyboard();
             JPKISignTask task = new JPKISignTask(this, tag, pin, input, signAlgo);
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(task);
         });
     }

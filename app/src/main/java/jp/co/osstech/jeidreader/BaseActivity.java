@@ -25,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public abstract class BaseActivity
     extends AppCompatActivity
@@ -32,6 +34,7 @@ public abstract class BaseActivity
 {
     public static final String TAG = "JeidReader";
     protected NfcAdapter nfcAdapter;
+    protected final ExecutorService exec = Executors.newSingleThreadExecutor();
 
     // ビューアーやメニュー画面ではNFC読み取りを無効化する
     // また、PIN間違いが発生してダイヤログを表示している間に
@@ -75,6 +78,13 @@ public abstract class BaseActivity
                                      },
                                      NfcAdapter.FLAG_READER_NFC_B | NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
                                      options);
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, getClass().getSimpleName() + "#onDestroy()");
+        super.onDestroy();
+        exec.shutdown();
     }
 
     @Override

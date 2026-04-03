@@ -6,9 +6,6 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class RCReaderActivity
     extends BaseActivity
 {
@@ -33,7 +30,6 @@ public class RCReaderActivity
             String rcNum = getRcNumber();
             hideKeyboard();
             RCReaderTask task = new RCReaderTask(this, tag, rcNum);
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(task);
         });
     }

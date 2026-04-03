@@ -5,9 +5,6 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class PinStatusActivity
     extends BaseActivity
 {
@@ -28,7 +25,6 @@ public class PinStatusActivity
             return;
         }
         runOnUiThread(() -> {
-            ExecutorService exec = Executors.newSingleThreadExecutor();
             exec.submit(new PinStatusTask(this, tag));
         });
     }
