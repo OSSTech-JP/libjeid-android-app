@@ -184,7 +184,9 @@ public class EPReaderTask
             }
             Intent intent = new Intent(activity, EPViewerActivity.class);
             intent.putExtra("json", obj.toString());
-            activity.startActivity(intent);
+            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
+            // UIスレッドから呼ぶことが推奨される
+            activity.runOnUiThread(() -> activity.startActivity(intent));
         } catch (Exception e) {
             Log.e(TAG, "error", e);
             publishProgress("エラー: " + e);

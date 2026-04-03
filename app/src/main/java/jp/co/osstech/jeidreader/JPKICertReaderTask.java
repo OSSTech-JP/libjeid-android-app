@@ -243,7 +243,9 @@ public class JPKICertReaderTask
             // ビューアーを表示
             Intent intent = new Intent(activity, JPKICertViewerActivity.class);
             intent.putExtra("json", obj.toString());
-            activity.startActivity(intent);
+            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
+            // UIスレッドから呼ぶことが推奨される
+            activity.runOnUiThread(() -> activity.startActivity(intent));
         } catch (Exception e) {
             Log.e(TAG, "error at " + getClass().getSimpleName() + "#doInBackground()", e);
             publishProgress("エラー: カードを読み取れませんでした" + e.getMessage());

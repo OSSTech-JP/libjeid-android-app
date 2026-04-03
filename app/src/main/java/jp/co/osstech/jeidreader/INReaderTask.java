@@ -176,7 +176,9 @@ public class INReaderTask
             // Viewerを起動
             Intent intent = new Intent(activity, INViewerActivity.class);
             intent.putExtra("json", obj.toString());
-            activity.startActivity(intent);
+            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
+            // UIスレッドから呼ぶことが推奨される
+            activity.runOnUiThread(() -> activity.startActivity(intent));
         } catch (Exception e) {
             Log.e(TAG, getClass().getSimpleName() + "#run()", e);
             publishProgress("エラー: " + e);

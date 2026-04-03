@@ -147,7 +147,9 @@ public class INDLReaderTask
             // ViewerにJSONをデータを引き渡して起動
             Intent intent = new Intent(activity, INDLViewerActivity.class);
             intent.putExtra("json", obj.toString());
-            activity.startActivity(intent);
+            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
+            // UIスレッドから呼ぶことが推奨される
+            activity.runOnUiThread(() -> activity.startActivity(intent));
         } catch (java.io.FileNotFoundException e) {
             publishProgress("マイナ運転免許証ではありません。");
         } catch (Exception e) {
