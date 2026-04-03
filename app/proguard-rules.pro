@@ -30,3 +30,4 @@
 -dontwarn android.**
 -dontwarn module-info
 -dontwarn javax.naming.**
+-dontwarn org.bouncycastle.pqc.**
