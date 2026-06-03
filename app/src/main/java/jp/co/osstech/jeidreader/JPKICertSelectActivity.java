@@ -10,7 +10,7 @@ public class JPKICertSelectActivity
     implements View.OnClickListener
 {
 
-    public static final String TAG = "JeidReader";
+    public static final String TAG = "jeidreader";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

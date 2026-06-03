@@ -32,7 +32,7 @@ public abstract class BaseActivity
     extends AppCompatActivity
     implements TagDiscoveredListener
 {
-    public static final String TAG = "JeidReader";
+    public static final String TAG = "jeidreader";
     protected NfcAdapter nfcAdapter;
     protected final ExecutorService exec = Executors.newSingleThreadExecutor();
 
