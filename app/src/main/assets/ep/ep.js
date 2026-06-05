@@ -59,15 +59,20 @@ function render(json) {
         }
     }
     if ('ep-mrz' in data) {
-        var mrzTable = '<table class="ep-mrz-table"><tr>';
-        for (var i = 0; i < data['ep-mrz'].length; i++) {
-            mrzTable += '<td>' + data['ep-mrz'].substr(i, 1) + '</td>';
-            if (i == (data['ep-mrz'].length / 2 | 0) - 1) {
-              mrzTable += '</tr>\n<tr>'
+        var mrz = data['ep-mrz'];
+        var half = mrz.length / 2 | 0;
+        var container = document.getElementById("ep-mrz");
+        container.textContent = '';
+        [mrz.substr(0, half), mrz.substr(half)].forEach(function(lineStr) {
+            var line = document.createElement('div');
+            line.className = 'ep-mrz-line';
+            for (var i = 0; i < lineStr.length; i++) {
+                var ch = document.createElement('span');
+                ch.textContent = lineStr.charAt(i);
+                line.appendChild(ch);
             }
-        }
-        mrzTable += '</tr></table>';
-        document.getElementById("ep-mrz").innerHTML = mrzTable;
+            container.appendChild(line);
+        });
     }
     if ('ep-photo' in data) {
         document.getElementById("ep-photo").src = data['ep-photo'];
