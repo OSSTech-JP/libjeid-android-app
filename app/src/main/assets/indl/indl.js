@@ -21,8 +21,8 @@ function render(json) {
     if ('color-class' in data) {
         entries.appendChild(createRow('免許の色区分', data['color-class']));
     }
-    if ('expire' in data) {
-        entries.appendChild(createRow('有効期限', data['expire']));
+    if ('expire-date' in data) {
+        entries.appendChild(createRow('有効期限', data['expire-date']));
     }
     if ('license-number' in data) {
         entries.appendChild(createRow('免許の番号', data['license-number']));
