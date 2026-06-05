@@ -73,7 +73,7 @@ function render(json) {
         document.getElementById("ep-photo").src = data['ep-photo'];
     }
 
-    var items = ['ep-bac-result', 'ep-aa-result', 'ep-pa-result'];
+    var items = ['ep-ac-result', 'ep-aa-result', 'ep-pa-result'];
     for (var i = 0; i < items.length; i++) {
         if (items[i] in data) {
             if (data[items[i]]) {
@@ -82,6 +82,9 @@ function render(json) {
                 document.getElementById(items[i]).src = 'verify-failed.png';
             }
         }
+    }
+    if ('ep-ac-method' in data) {
+        document.getElementById('ep-ac-method').textContent = data['ep-ac-method'];
     }
 }
 

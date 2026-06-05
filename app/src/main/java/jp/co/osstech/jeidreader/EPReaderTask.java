@@ -113,15 +113,17 @@ public class EPReaderTask
             }
 
             PassportAP ap = reader.selectPassportAP();
-            publishProgress("## Basic Access Control");
+            publishProgress("## Access Control (PACE/BAC)");
+            String acMethod;
             try {
-                ap.startBAC(mrz);
+                // EF.CardAccess があれば PACE、無ければ BAC を自動選択
+                acMethod = ap.startAC(mrz);
             } catch (InvalidBACKeyException e) {
                 publishProgress("失敗\n"
                         + "旅券番号、生年月日または有効期限が間違っています");
                 return;
             }
-            publishProgress("完了");
+            publishProgress("完了 (方式: " + acMethod + ")");
 
             publishProgress("## パスポートから情報を読み取ります");
             EPFiles files = ap.readFiles();
@@ -153,16 +155,14 @@ public class EPReaderTask
             String src = "data:image/jpeg;base64," + Base64.encodeToString(jpeg, Base64.DEFAULT);
             obj.put("ep-photo", src);
 
-            obj.put("ep-bac-result", true);
-            publishProgress("## Passive Authentication");
-            try {
-                ValidationResult result = files.validate();
-                obj.put("ep-pa-result", result.isValid());
-                publishProgress("検証結果: " + result.isValid());
-            } catch (UnsupportedOperationException e) {
-                publishProgress("libjeid-freeでは検証をスキップします");
-            }
+            obj.put("ep-ac-result", true);
+            obj.put("ep-ac-method", acMethod);
 
+            // Active Authentication はカードとの通信が必要なため、オフライン処理である
+            // Passive Authentication より先に実行する。AA 直前に CPU 処理(検証)で間が空くと、
+            // NFC セッションのアイドルでカード側 SM が失われ INTERNAL AUTHENTICATE が
+            // SW=6985 で拒否される事象を避けるため、読み出し直後の「カードが温まっている」
+            // タイミングで AA を行う。
             publishProgress("## Active Authentication");
             try {
                 boolean aaResult = ap.activeAuthentication(files);
@@ -175,7 +175,17 @@ public class EPReaderTask
             } catch (TagLostException e) {
                 throw e;
             } catch (IOException e) {
-                publishProgress("Active Authenticationで不明なエラーが発生しました");
+                Log.e(TAG, "Active Authentication error", e);
+                publishProgress("Active Authenticationで不明なエラーが発生しました: " + e);
+            }
+
+            publishProgress("## Passive Authentication");
+            try {
+                ValidationResult result = files.validate();
+                obj.put("ep-pa-result", result.isValid());
+                publishProgress("検証結果: " + result.isValid());
+            } catch (UnsupportedOperationException e) {
+                publishProgress("libjeid-freeでは検証をスキップします");
             }
 
             if (!"JPN".equals(dg1Mrz.getIssuingCountry())) {
