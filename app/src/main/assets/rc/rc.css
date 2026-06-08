@@ -446,3 +446,28 @@ table.rc-table td {
   border: 1px solid #000000;
   background-color: #fff;
 }
+
+table.rc-authenticity-table {
+  display: inline-block;
+  width: auto;
+  margin-top: 0px;
+  margin-left: 20px;
+  font-size: 0;
+  border-collapse: collapse;
+}
+
+table.rc-authenticity-table td {
+  width: auto;
+  height: 40px;
+  background-color: #fff;
+  font-size: 27px;
+  line-height: 27px;
+}
+
+img.rc-authenticity-verified {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding-right: 20px;
+  vertical-align: bottom;
+}
