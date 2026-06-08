@@ -116,7 +116,7 @@ public class EPReaderTask
             publishProgress("## Access Control (PACE/BAC)");
             String acMethod;
             try {
-                // EF.CardAccess があれば PACE、無ければ BAC を自動選択
+                // まずPACEを試行し、古いパスポートではBACにフォールバック
                 acMethod = ap.startAC(mrz);
             } catch (InvalidBACKeyException e) {
                 publishProgress("失敗\n"
