@@ -12,6 +12,8 @@ import jp.co.osstech.libjeid.JPKIAP;
 import jp.co.osstech.libjeid.JeidReader;
 import jp.co.osstech.libjeid.ResidenceCardAP;
 import jp.co.osstech.libjeid.rc.RCCardType;
+import jp.co.osstech.libjeid.ResidenceCard2AP;
+import jp.co.osstech.libjeid.rc2.RC2CardType;
 
 public class PinStatusTask
     implements Runnable
@@ -94,16 +96,21 @@ public class PinStatusTask
                 publishProgress("カード種別: パスポート");
                 break;
             case RC:
+                publishProgress("カード種別: 在留カード");
                 ResidenceCardAP rcAP = reader.selectResidenceCardAP();
-                RCCardType rcCardType = rcAP.readCardType();
-                if (rcCardType.getType().equals("1")) {
-                    publishProgress("カード種別: 在留カード");
-                } else if (rcCardType.getType().equals("2")) {
-                    publishProgress("カード種別: 特別永住者証明書");
-                } else {
-                    publishProgress("カード種別: 在留カード等(不明)");
-                }
+                RCCardType rcType = rcAP.readCardType();
+                publishProgress("在留カード種別: " + rcType.toString());
                 break;
+            case RC2:
+                publishProgress("カード種別: 第2世代在留カード");
+                ResidenceCard2AP rc2AP = reader.selectResidenceCard2AP();
+                RC2CardType rc2Type = rc2AP.readCardType();
+                publishProgress("在留カード種別: " + rc2Type.toString());
+                break;
+            case RCS:
+                publishProgress("カード種別: 特定在留カード");
+                break;
+
             default:
                 publishProgress("カード種別: 不明");
                 break;
