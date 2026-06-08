@@ -25,8 +25,7 @@
     public static *** d(...)        ;
 }
 
--keep class org.bouncycastle.** { *; }
--keep class ucar.** { *; }
+#-keep class org.bouncycastle.** { *; }
 -dontwarn android.**
 -dontwarn module-info
 -dontwarn javax.naming.**
