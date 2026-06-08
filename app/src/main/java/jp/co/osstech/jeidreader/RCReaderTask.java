@@ -133,6 +133,7 @@ public class RCReaderTask
             try {
                 ValidationResult result = files.validate();
                 obj.put("rc-valid", result.isValid());
+                obj.put("rc-validation-result", result.toString());
                 publishProgress("真正性検証結果: " + result);
             } catch(UnsupportedOperationException e) {
                 // free版の場合、真正性検証処理で
