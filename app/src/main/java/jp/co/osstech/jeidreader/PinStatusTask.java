@@ -107,10 +107,6 @@ public class PinStatusTask
                 RC2CardType rc2Type = rc2AP.readCardType();
                 publishProgress("在留カード種別: " + rc2Type.toString());
                 break;
-            case RCS:
-                publishProgress("カード種別: 特定在留カード");
-                break;
-
             default:
                 publishProgress("カード種別: 不明");
                 break;
