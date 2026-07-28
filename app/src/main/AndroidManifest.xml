@@ -121,6 +121,12 @@
         android:exported="false">
     </activity>
     <activity
+        android:name=".RCMenuActivity"
+        android:label="@string/rc_menu"
+        android:screenOrientation="portrait"
+        android:exported="false">
+    </activity>
+    <activity
         android:name=".RCReaderActivity"
         android:label="@string/rc_reader"
         android:screenOrientation="portrait"
@@ -130,6 +136,19 @@
     <activity
         android:name=".RCViewerActivity"
         android:label="@string/rc_viewer"
+        android:screenOrientation="portrait"
+        android:exported="false">
+    </activity>
+    <activity
+        android:name=".RC2ReaderActivity"
+        android:label="@string/rc2_reader"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="adjustResize"
+        android:exported="false">
+    </activity>
+    <activity
+        android:name=".RC2ViewerActivity"
+        android:label="@string/rc2_viewer"
         android:screenOrientation="portrait"
         android:exported="false">
     </activity>

@@ -28,8 +28,12 @@
     <string name="indl_viewer">マイナ運転免許証ビューア</string>
     <string name="ep_reader">パスポートリーダー</string>
     <string name="ep_viewer">パスポートビューア</string>
+    <string name="rc_menu">在留カード等</string>
     <string name="rc_reader">在留カードリーダー</string>
     <string name="rc_viewer">在留カードビューア</string>
+    <string name="rc1_reader">(第1世代)在留カード読み出し</string>
+    <string name="rc2_reader">第2世代在留カード読み出し</string>
+    <string name="rc2_viewer">第2世代在留カードビューア</string>
     <!--<string name="acs_reader">ACSカードリーダー</string>-->
     <string name="in_test">個人番号カードテスト</string>
     <string name="in_dev">開発者用\n機能</string>

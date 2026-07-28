@@ -14,7 +14,7 @@ public class MainActivity extends BaseActivity
         setClickListener(R.id.dl_reader_button, DLReaderActivity.class);
         setClickListener(R.id.indl_reader_button, INDLReaderActivity.class);
         setClickListener(R.id.ep_reader_button, EPReaderActivity.class);
-        setClickListener(R.id.rc_reader_button, RCReaderActivity.class);
+        setClickListener(R.id.rc_menu_button, RCMenuActivity.class);
         setClickListener(R.id.pinstatus_button, PinStatusActivity.class);
     }
 

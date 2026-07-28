@@ -1,0 +1,269 @@
+
+* {
+  margin : 0;
+  padding : 0;
+}
+
+body {
+  font-size: medium;
+}
+
+h1 {
+  margin: 2px;
+  padding: 2px;
+}
+
+.rc2-block {
+  display: block;
+  width: 620px;
+  margin: 0px;
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+.rc2-entries {
+  display: block;
+  position: relative;
+  width: 638px;
+  margin: 0px;
+  padding: 0px 0px 10px 0px;
+  border-radius: 10px;
+  border: 1px solid #aaaaaa;
+  font-size: 20px;
+  font-family: "Noto Sans";
+}
+
+.rc2-header {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 8px;
+  border-radius: 10px 10px 0px 0px;
+  background-color: rgba(0,180,255,0.25);
+}
+
+.rc2-header.type-sprc {
+  background-color: rgba(255,235,10,0.25);
+}
+
+.rc2-government-wrapper {
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+  left: 15px;
+  font-size: 0;
+}
+
+.rc2-government-jp {
+  height: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.rc2-government-en {
+  height: 14px;
+  margin-left: 2px;
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: -1px;
+  word-spacing: -2px;
+  white-space: nowrap;
+  font-family: monospace;
+}
+
+.rc2-card-name-wrapper {
+  display: inline-block;
+  position: static;
+  width: 100%;
+  height: 100%;
+  padding-top: 2px;
+  text-align: center;
+  font-size: 0;
+}
+
+.rc2-card-name-jp {
+  height: 24px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 24px;
+  letter-spacing: 5px;
+  white-space: nowrap;
+}
+
+.rc2-card-name-jp.type-sprc {
+  letter-spacing: 0px;
+}
+
+.rc2-card-name-en {
+  height: 12px;
+  font-size: 14px;
+  line-height: 12px;
+  letter-spacing: -1px;
+  word-spacing: -2px;
+  white-space: nowrap;
+  font-family: monospace;
+}
+
+.rc2-card-name-en.type-sprc {
+  font-size: 13px;
+}
+
+.rc2-number-wrapper {
+  display: inline-block;
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  font-size: 0;
+}
+
+.rc2-number-jp {
+  height: 14px;
+  font-size: 14px;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+.rc2-number-value {
+  height: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  font-family: monospace;
+}
+
+.rc2-body {
+  display: flex;
+  align-items: stretch;
+  padding: 0px 12px;
+}
+
+.rc2-photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 145px;
+  margin-left: 8px;
+}
+
+img.rc2-photo {
+  display: none;
+  max-width: 100%;
+  max-height: 190px;
+  height: auto;
+}
+
+img.rc2-photo.img-exists {
+  display: block;
+}
+
+img.rc2-moj {
+  display: block;
+  width: 80px;
+  height: auto;
+  /* 顔画像の下に配置し、余白があれば下端に寄せる */
+  margin-top: auto;
+  opacity: 0.6;
+}
+
+.rc2-minister-of-justice {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+table.rc2-face-table {
+  flex: 1 1 auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+table.rc2-face-table th,
+table.rc2-face-table td {
+  padding: 3px 4px;
+  border: 1px solid #cccccc;
+  font-size: 15px;
+  text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+table.rc2-face-table th {
+  width: 105px;
+  font-weight: normal;
+  background-color: rgba(0,180,255,0.10);
+}
+
+/* 1行に2項目並ぶ場合の2項目目のラベル */
+table.rc2-face-table th.sub {
+  width: 80px;
+}
+
+table.rc2-face-table td {
+  font-size: 14px;
+}
+
+table.rc2-face-table th .en {
+  display: block;
+  font-size: 11px;
+  letter-spacing: -1px;
+  word-spacing: -1px;
+  font-family: monospace;
+}
+
+img.rc2-name-image,
+img.rc2-address-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+table.rc2-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+table.rc2-table th,
+table.rc2-table td {
+  padding: 4px;
+  border: 1px solid #000000;
+  background-color: #fff;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+table.rc2-table th {
+  width: 250px;
+  font-weight: normal;
+}
+
+table.rc2-authenticity-table {
+  display: inline-block;
+  width: auto;
+  margin-top: 0px;
+  margin-left: 20px;
+  font-size: 0;
+  border-collapse: collapse;
+}
+
+table.rc2-authenticity-table td {
+  width: auto;
+  height: 40px;
+  background-color: #fff;
+  font-size: 27px;
+  line-height: 27px;
+}
+
+img.rc2-authenticity-verified {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding-right: 20px;
+  vertical-align: bottom;
+}

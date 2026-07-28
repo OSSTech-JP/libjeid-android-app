@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=640,user-scalable=yes">
+  </head>
+  <script type="text/javascript" src="rc2.js"></script>
+  <link rel="stylesheet" type="text/css" href="normalize.css" />
+  <link rel="stylesheet" type="text/css" href="rc2.css" />
+  <body>
+    <!--
+      第2世代在留カードには第1世代のような券面イメージ(1枚絵)が無く、
+      氏名・住居地はイメージ、その他は文字コードで個別に格納されている。
+      そのため券面を模した枠内に各データを配置して表示する。
+    -->
+    <div class="rc2-entries">
+      <div class="rc2-header" id="rc2-header">
+        <div class="rc2-government-wrapper">
+          <div class="rc2-government-jp">日本国政府</div>
+          <div class="rc2-government-en">GOVERNMENT OF JAPAN</div>
+        </div>
+        <div class="rc2-card-name-wrapper">
+          <div class="rc2-card-name-jp" id="rc2-card-name-jp">在留カード</div>
+          <div class="rc2-card-name-en" id="rc2-card-name-en">RESIDENCE CARD</div>
+        </div>
+        <div class="rc2-number-wrapper">
+          <div class="rc2-number-jp">番号</div>
+          <div class="rc2-number-value" id="rc2-card-number"></div>
+        </div>
+      </div>
+      <div class="rc2-body">
+      <table class="rc2-face-table">
+        <tr>
+          <th>氏名<span class="en">NAME</span></th>
+          <td colspan="3"><img class="rc2-name-image" id="rc2-name-image"/></td>
+        </tr>
+        <tr>
+          <th>生年月日<span class="en">DATE OF BIRTH</span></th>
+          <td id="rc2-birth-date"></td>
+          <th class="sub">性別<span class="en">SEX</span></th>
+          <td id="rc2-sex"></td>
+        </tr>
+        <tr>
+          <th>国籍･地域<span class="en">NATIONALITY/REGION</span></th>
+          <td colspan="3" id="rc2-nationality"></td>
+        </tr>
+        <tr>
+          <th>住居地<span class="en">ADDRESS</span></th>
+          <td colspan="3"><img class="rc2-address-image" id="rc2-address-image"/></td>
+        </tr>
+        <tr class="rc2-only">
+          <th>在留資格<span class="en">STATUS</span></th>
+          <td colspan="3" id="rc2-status"></td>
+        </tr>
+        <tr class="rc2-only">
+          <th>就労制限の有無</th>
+          <td colspan="3" id="rc2-work-restriction"></td>
+        </tr>
+        <tr class="rc2-only">
+          <th>在留期間<span class="en">PERIOD OF STAY</span></th>
+          <td id="rc2-period"></td>
+          <th class="sub">満了日</th>
+          <td id="rc2-period-until"></td>
+        </tr>
+        <tr class="rc2-only">
+          <th>許可の種類</th>
+          <td id="rc2-permit-category"></td>
+          <th class="sub">許可年月日</th>
+          <td id="rc2-permit-date"></td>
+        </tr>
+        <tr>
+          <th>有効期限満了日</th>
+          <td colspan="3" id="rc2-valid-until"></td>
+        </tr>
+      </table>
+      <div class="rc2-photo-wrapper">
+        <img class="rc2-photo" id="rc2-photo"/>
+        <img class="rc2-moj" src="moj.png"/>
+        <div class="rc2-minister-of-justice">出入国在留管理庁長官</div>
+      </div>
+      </div>
+    </div>
+
+    <h1>裏面記載事項</h1>
+    <div class="rc2-block">
+      <table class="rc2-table">
+        <tr class="rc2-only">
+          <th>資格外活動許可(包括許可欄)</th>
+          <td id="rc2-comprehensive"></td>
+        </tr>
+        <tr class="rc2-only">
+          <th>包括許可期限</th>
+          <td id="rc2-comprehensive-limit"></td>
+        </tr>
+        <tr class="rc2-only">
+          <th>資格外活動許可(個別許可欄)</th>
+          <td id="rc2-individual"></td>
+        </tr>
+        <tr class="rc2-only">
+          <th>在留期間更新等許可申請</th>
+          <td id="rc2-update-status"></td>
+        </tr>
+        <tr>
+          <th>出入国在留管理庁長官が記載した旨</th>
+          <td id="rc2-commissioner-mark"></td>
+        </tr>
+        <tr>
+          <th>予備</th>
+          <td id="rc2-reserved"></td>
+        </tr>
+      </table>
+    </div>
+
+    <h1>真正性検証</h1>
+    <div class="rc2-block">
+      <table class="rc2-authenticity-table">
+        <tr>
+          <td><img class="rc2-authenticity-verified" id="rc2-validation-result-icon" src="verify-unexecuted.png"></td>
+          <td>真正性検証結果: <span id="rc2-validation-result-text"></span></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
