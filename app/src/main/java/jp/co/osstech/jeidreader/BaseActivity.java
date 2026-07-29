@@ -138,6 +138,15 @@ public abstract class BaseActivity
         return true;
     }
 
+    /**
+     * Aboutダイアログでテストモードが切り替えられたときに呼ばれます。
+     * 隠し項目を持つ画面はこれをoverrideして表示を更新します。
+     *
+     * @param enabled テストモードが有効になった場合true
+     */
+    protected void onTestModeChanged(boolean enabled) {
+    }
+
     protected void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) {

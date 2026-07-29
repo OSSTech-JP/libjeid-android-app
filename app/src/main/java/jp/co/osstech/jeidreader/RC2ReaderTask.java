@@ -105,16 +105,17 @@ public class RC2ReaderTask
             obj.put("rc2-work-restriction", cardEntries.getWorkRestriction());
             obj.put("rc2-period-until", cardEntries.getPeriodUntil());
 
-            publishProgress("## 氏名イメージ・顔写真のデコード");
-            RC2NamePhoto namePhoto = files.getNamePhoto();
-            String src = toPngDataUri(namePhoto.getNameBitmapARGB());
+            publishProgress("## 氏名イメージ・顔画像のデコード");
+            RC2NameImage nameImage = files.getNameImage();
+            String src = toPngDataUri(nameImage.getBitmapARGB());
             if (src != null) {
                 obj.put("rc2-name-image", src);
             }
             // 1歳未満の中長期在留者・特別永住者では顔画像が格納されない
-            src = toJpegDataUri(namePhoto.getPhotoBitmapARGB());
+            RC2FaceImage faceImage = files.getFaceImage();
+            src = toJpegDataUri(faceImage.getBitmapARGB());
             if (src != null) {
-                obj.put("rc2-photo", src);
+                obj.put("rc2-face-image", src);
             }
             publishProgress("完了");
 

@@ -40,7 +40,8 @@ function decode(table, code) {
     if (code in table) {
         return table[code] + ' (' + code + ')';
     }
-    return code;
+    // 仕様に定義のないコード。生の値だけを出すと意味が分からないため明示する
+    return '不明 (' + code + ')';
 }
 
 // YYYYMMDD を YYYY年M月D日 に整形する
@@ -113,7 +114,7 @@ function render(json) {
     setText('rc2-valid-until', formatDate(data['rc2-valid-until']));
 
     // 1歳未満の中長期在留者・特別永住者では顔画像が格納されない
-    setImage('rc2-photo', data['rc2-photo']);
+    setImage('rc2-face-image', data['rc2-face-image']);
     setImage('rc2-name-image', data['rc2-name-image']);
     setImage('rc2-address-image', data['rc2-address-image']);
 

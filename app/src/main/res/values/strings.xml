@@ -36,5 +36,6 @@
     <string name="rc2_viewer">第2世代在留カードビューア</string>
     <!--<string name="acs_reader">ACSカードリーダー</string>-->
     <string name="in_test">個人番号カードテスト</string>
-    <string name="in_dev">開発者用\n機能</string>
+    <string name="test_mode_enabled">テストモードを有効にしました</string>
+    <string name="test_mode_disabled">テストモードを無効にしました</string>
 </resources>

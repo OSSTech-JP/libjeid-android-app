@@ -1,29 +1,16 @@
 package jp.co.osstech.jeidreader;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-
-public class MainActivity extends BaseActivity
+public class MainActivity
+    extends MenuActivity
 {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setClickListener(R.id.in_menu_button, INMenuActivity.class);
-        setClickListener(R.id.dl_reader_button, DLReaderActivity.class);
-        setClickListener(R.id.indl_reader_button, INDLReaderActivity.class);
-        setClickListener(R.id.ep_reader_button, EPReaderActivity.class);
-        setClickListener(R.id.rc_menu_button, RCMenuActivity.class);
-        setClickListener(R.id.pinstatus_button, PinStatusActivity.class);
-    }
-
-    private void setClickListener(int buttonId, final Class<?> activity) {
-        findViewById(buttonId).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, activity));
-            }
-        });
+    protected MenuEntry[] getMenuEntries() {
+        return new MenuEntry[] {
+            new MenuEntry(R.string.in_menu, INMenuActivity.class),
+            new MenuEntry(R.string.dl_reader, DLReaderActivity.class),
+            new MenuEntry(R.string.ep_reader, EPReaderActivity.class),
+            new MenuEntry(R.string.rc_menu, RCMenuActivity.class),
+            new MenuEntry(R.string.pinstatus, PinStatusActivity.class),
+        };
     }
 }

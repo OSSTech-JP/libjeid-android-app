@@ -14,7 +14,9 @@
         android:layout_height="match_parent"
         android:contentDescription="app_icon"
         android:src="@mipmap/ic_launcher" />
+    <!-- 5回タップするとテストモードが切り替わります(AboutDialogFragment参照) -->
     <ImageView
+        android:id="@+id/libjeid_icon"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:contentDescription="libjeid_icon"
