@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.ArrayList;
 
 public class EPReaderActivity
@@ -20,6 +21,7 @@ public class EPReaderActivity
     EditText passportNumber;
     EditText birthDate;
     EditText expireDate;
+    private View viewerContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,26 @@ public class EPReaderActivity
         passportNumber = (EditText)findViewById(R.id.edit_ep_passport_number);
         birthDate = (EditText)findViewById(R.id.edit_ep_birth_date);
         expireDate = (EditText)findViewById(R.id.edit_ep_expire_date);
-        // 復元時にスキャン画面が表示されていた場合はNFCを止めたままにする
+        viewerContainer = findViewById(R.id.ep_viewer_container);
+        // 復元時にスキャン画面またはビューアが表示されていた場合はNFCを止めたままにする
         if (getSupportFragmentManager()
                 .findFragmentByTag(MrzScanFragment.TAG_FRAGMENT) != null) {
             this.enableNFC = false;
         }
+        if (isViewerShown()) {
+            this.enableNFC = false;
+            viewerContainer.setVisibility(View.VISIBLE);
+            setTitle(R.string.ep_viewer);
+        }
+        // ビューアが閉じられたら読み取り画面の状態へ戻す
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            if (isViewerShown()) {
+                return;
+            }
+            viewerContainer.setVisibility(View.GONE);
+            setTitle(R.string.ep_reader);
+            this.enableNFC = true;
+        });
         findViewById(R.id.button_ep_scan_mrz).setOnClickListener(v -> showMrzScanner());
 
         String[] items = getResources().getStringArray(R.array.inputs_ep_reader);
@@ -76,6 +93,10 @@ public class EPReaderActivity
         Log.d(TAG, getClass().getSimpleName() + "#onTagDiscovered()");
         if (!this.enableNFC) {
             Log.d(TAG, getClass().getSimpleName() + ": NFC disabled.");
+            if (isViewerShown()) {
+                runOnUiThread(() -> Toast.makeText(this, "ビューアを閉じてください",
+                        Toast.LENGTH_LONG).show());
+            }
             return;
         }
         runOnUiThread(() -> {
@@ -86,6 +107,32 @@ public class EPReaderActivity
             EPReaderTask task = new EPReaderTask(this, tag, passportNum, birth, expire);
             exec.submit(task);
         });
+    }
+
+    /**
+     * 読み取り結果をビューアに表示します。UIスレッドから呼び出してください。
+     *
+     * <p>別Activityへ遷移せずこのActivity内のFragmentとして表示するため、
+     * NFCリーダーモードの登録は解除されません。表示中の二重読み取りは
+     * {@code enableNFC}で抑止します。
+     *
+     * @param json 表示する読み取り結果のJSON
+     */
+    public void showViewer(String json) {
+        Log.d(TAG, getClass().getSimpleName() + ": showViewer(), json size=" + json.length());
+        this.enableNFC = false;
+        viewerContainer.setVisibility(View.VISIBLE);
+        setTitle(R.string.ep_viewer);
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.ep_viewer_container, EPViewerFragment.newInstance(json),
+                    EPViewerFragment.TAG_FRAGMENT)
+            .addToBackStack(EPViewerFragment.TAG_FRAGMENT)
+            .commit();
+    }
+
+    private boolean isViewerShown() {
+        return getSupportFragmentManager()
+                .findFragmentByTag(EPViewerFragment.TAG_FRAGMENT) != null;
     }
 
     /**

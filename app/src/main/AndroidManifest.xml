@@ -130,12 +130,6 @@
         android:exported="false">
     </activity>
     <activity
-        android:name=".EPViewerActivity"
-        android:label="@string/ep_viewer"
-        android:screenOrientation="portrait"
-        android:exported="false">
-    </activity>
-    <activity
         android:name=".RCMenuActivity"
         android:label="@string/rc_menu"
         android:screenOrientation="portrait"

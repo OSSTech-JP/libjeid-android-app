@@ -1,6 +1,5 @@
 package jp.co.osstech.jeidreader;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.nfc.Tag;
 import android.nfc.TagLostException;
@@ -192,11 +191,9 @@ public class EPReaderTask
                 publishProgress("日本発行のパスポートではありません");
                 return;
             }
-            Intent intent = new Intent(activity, EPViewerActivity.class);
-            intent.putExtra("json", obj.toString());
-            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
-            // UIスレッドから呼ぶことが推奨される
-            activity.runOnUiThread(() -> activity.startActivity(intent));
+            // ビューアは別Activityではなく読み取り画面内のFragmentとして表示する
+            final String json = obj.toString();
+            activity.runOnUiThread(() -> activity.showViewer(json));
         } catch (Exception e) {
             Log.e(TAG, "error", e);
             publishProgress("エラー: " + e);
