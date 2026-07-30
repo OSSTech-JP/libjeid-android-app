@@ -60,7 +60,6 @@ public abstract class BaseActivity
             return;
         }
 
-        Log.d(TAG, "NFC mode: ReaderMode");
         if(!this.enableNFC) {
             // メニュー画面やビューアーでNFC読み取りを無効化します
             // これを行わないと通常モード(OS標準)の読み取りが有効になるからです
@@ -140,7 +139,6 @@ public abstract class BaseActivity
 
     /**
      * Aboutダイアログでテストモードが切り替えられたときに呼ばれます。
-     * 隠し項目を持つ画面はこれをoverrideして表示を更新します。
      *
      * @param enabled テストモードが有効になった場合true
      */

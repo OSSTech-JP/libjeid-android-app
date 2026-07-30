@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class EPReaderActivity
     extends BaseActivity
+    implements MrzScanFragment.Listener
 {
     EditText passportNumber;
     EditText birthDate;
@@ -28,6 +29,12 @@ public class EPReaderActivity
         passportNumber = (EditText)findViewById(R.id.edit_ep_passport_number);
         birthDate = (EditText)findViewById(R.id.edit_ep_birth_date);
         expireDate = (EditText)findViewById(R.id.edit_ep_expire_date);
+        // 復元時にスキャン画面が表示されていた場合はNFCを止めたままにする
+        if (getSupportFragmentManager()
+                .findFragmentByTag(MrzScanFragment.TAG_FRAGMENT) != null) {
+            this.enableNFC = false;
+        }
+        findViewById(R.id.button_ep_scan_mrz).setOnClickListener(v -> showMrzScanner());
 
         String[] items = getResources().getStringArray(R.array.inputs_ep_reader);
         if (items.length == 0) {
@@ -79,6 +86,35 @@ public class EPReaderActivity
             EPReaderTask task = new EPReaderTask(this, tag, passportNum, birth, expire);
             exec.submit(task);
         });
+    }
+
+    /**
+     * MRZ読み取り画面を表示します。
+     *
+     * <p>スキャン中はカードを検出しても読み取りを開始しないよう、NFCを止めておきます。
+     * リーダーモードの登録自体は解除しません(別Activityへ遷移しないため解除されません)。
+     */
+    private void showMrzScanner() {
+        hideKeyboard();
+        this.enableNFC = false;
+        new MrzScanFragment().show(getSupportFragmentManager(), MrzScanFragment.TAG_FRAGMENT);
+    }
+
+    /**
+     * MRZ読み取り結果を入力欄へ反映します。日付はYYYYMMDDの8桁で渡されます。
+     */
+    @Override
+    public void onMrzScanned(String documentNumber, String birth, String expire) {
+        Log.d(TAG, getClass().getSimpleName() + ": MRZ scanned, number=" + documentNumber);
+        passportNumber.setText(documentNumber, TextView.BufferType.NORMAL);
+        birthDate.setText(birth, TextView.BufferType.NORMAL);
+        expireDate.setText(expire, TextView.BufferType.NORMAL);
+        print("# MRZを読み取りました。パスポートを読み取り位置にタッチしてください");
+    }
+
+    @Override
+    public void onMrzScanFinished() {
+        this.enableNFC = true;
     }
 
     protected String getPassportNumber() {

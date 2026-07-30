@@ -35,18 +35,33 @@
           android:layout_marginTop="8dp"
           android:text="旅券番号(9桁)"
           android:textSize="20sp" />
-      <EditText
-          android:id="@+id/edit_ep_passport_number"
+      <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
-          android:ems="10"
-          android:textSize="20sp"
-          android:inputType="textVisiblePassword"
-          android:maxLength="9"
-          android:hint="@null"
-          tools:ignore="Autofill"
-          />
+          android:orientation="horizontal"
+          android:gravity="center_vertical">
+        <EditText
+            android:id="@+id/edit_ep_passport_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:inputType="textVisiblePassword"
+            android:maxLength="9"
+            android:hint="@null"
+            tools:ignore="Autofill"
+            />
+        <ImageButton
+            android:id="@+id/button_ep_scan_mrz"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/button_background"
+            android:src="@drawable/ic_camera"
+            android:scaleType="centerInside"
+            android:contentDescription="MRZをカメラで読み取る" />
+      </LinearLayout>
       <TextView
           android:id="@+id/text_ep_birth_date"
           android:layout_width="match_parent"

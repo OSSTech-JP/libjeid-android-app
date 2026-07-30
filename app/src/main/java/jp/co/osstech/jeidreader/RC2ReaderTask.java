@@ -98,7 +98,7 @@ public class RC2ReaderTask
             obj.put("rc2-birth-date", cardEntries.getBirthDate());
             obj.put("rc2-sex", cardEntries.getSex());
             obj.put("rc2-nationality", cardEntries.getNationality());
-            obj.put("rc2-status", cardEntries.getStatus());
+            obj.put("rc2-status", cardEntries.getResidenceStatus());
             obj.put("rc2-period", cardEntries.getPeriod());
             obj.put("rc2-permit-category", cardEntries.getPermitCategory());
             obj.put("rc2-permit-date", cardEntries.getPermitDate());
