@@ -5,12 +5,12 @@
     android:installLocation="auto">
   <uses-permission android:name="android.permission.NFC" />
   <uses-permission android:name="android.permission.CAMERA" />
-  <!-- ML Kitのテレメトリ送信基盤(datatransport)がマージするINTERNET権限を打ち消す。
-       OCRは端末内で完結し、モデル取得はGoogle Play開発者サービスのプロセスが行うため、
-       アプリ自身がネットワークへ出る必要はない。
-       ACCESS_NETWORK_STATEは接続状態の参照のみでデータ送信はできないため残す
-       (除去するとdatatransportの接続判定がSecurityExceptionを踏む恐れがある)。 -->
+  <!-- ML Kitのテレメトリ送信基盤(com.google.android.datatransport)がマージしてくる
+       ネットワーク権限を打ち消す。OCRは端末内で完結し、モデル取得はGoogle Play
+       開発者サービスのプロセスが行うため、アプリ自身がネットワークへ出る必要はない。
+  -->
   <uses-permission android:name="android.permission.INTERNET" tools:node="remove" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" tools:node="remove" />
   <uses-feature
       android:name="android.hardware.nfc"
       android:required="true"
