@@ -31,7 +31,7 @@ public class EPReaderActivity
         passportNumber = (EditText)findViewById(R.id.edit_ep_passport_number);
         birthDate = (EditText)findViewById(R.id.edit_ep_birth_date);
         expireDate = (EditText)findViewById(R.id.edit_ep_expire_date);
-        viewerContainer = findViewById(R.id.ep_viewer_container);
+        viewerContainer = findViewById(R.id.viewer_container);
         // 復元時にスキャン画面またはビューアが表示されていた場合はNFCを止めたままにする
         if (getSupportFragmentManager()
                 .findFragmentByTag(MrzScanFragment.TAG_FRAGMENT) != null) {
@@ -124,15 +124,16 @@ public class EPReaderActivity
         viewerContainer.setVisibility(View.VISIBLE);
         setTitle(R.string.ep_viewer);
         getSupportFragmentManager().beginTransaction()
-            .replace(R.id.ep_viewer_container, EPViewerFragment.newInstance(json),
-                    EPViewerFragment.TAG_FRAGMENT)
-            .addToBackStack(EPViewerFragment.TAG_FRAGMENT)
+            .replace(R.id.viewer_container,
+                    ViewerFragment.newInstance(ViewerFragment.ASSET_EP, json),
+                    ViewerFragment.TAG_FRAGMENT)
+            .addToBackStack(ViewerFragment.TAG_FRAGMENT)
             .commit();
     }
 
     private boolean isViewerShown() {
         return getSupportFragmentManager()
-                .findFragmentByTag(EPViewerFragment.TAG_FRAGMENT) != null;
+                .findFragmentByTag(ViewerFragment.TAG_FRAGMENT) != null;
     }
 
     /**

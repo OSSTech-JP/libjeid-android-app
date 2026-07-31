@@ -1,6 +1,5 @@
 package jp.co.osstech.jeidreader;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.nfc.Tag;
 import android.util.Base64;
@@ -144,12 +143,9 @@ public class INDLReaderTask
             obj.put("signature-valid", result.isValid());
             publishProgress("真正性検証結果: " + result);
 
-            // ViewerにJSONをデータを引き渡して起動
-            Intent intent = new Intent(activity, INDLViewerActivity.class);
-            intent.putExtra("json", obj.toString());
-            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
-            // UIスレッドから呼ぶことが推奨される
-            activity.runOnUiThread(() -> activity.startActivity(intent));
+            // ビューアは別Activityではなく読み取り画面内のFragmentとして表示する
+            final String json = obj.toString();
+            activity.runOnUiThread(() -> activity.showViewer(json));
         } catch (java.io.FileNotFoundException e) {
             publishProgress("マイナ運転免許証ではありません。");
         } catch (Exception e) {

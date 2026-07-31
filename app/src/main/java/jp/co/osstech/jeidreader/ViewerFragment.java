@@ -15,43 +15,60 @@ import androidx.fragment.app.Fragment;
 import org.json.JSONObject;
 
 /**
- * パスポートの読み取り結果を表示する画面。
+ * 読み取り結果をWebViewで表示する画面。カード種別によらず共通で使用します。
  *
- * <p>Activityではなく呼び出し元のActivity内に表示するFragmentとして実装している。
+ * <p>表示内容はassets配下のHTML/JSに委ねており、カード種別ごとの差分は
+ * 読み込むHTMLのURLだけです。
+ *
+ * <p>Activityではなく呼び出し元のActivity内に表示するFragmentとして実装しています。
  * {@code NfcAdapter#enableReaderMode()}はActivityに紐づくAPIであり、Activity境界ごとに
- * リーダーモードの解除・再登録が発生する。同一Activity内に収めれば呼び出し元は
- * resumedのままなので、登録は一度も解除されない。
+ * リーダーモードの解除・再登録が発生します。同一Activity内に収めれば呼び出し元は
+ * resumedのままなので、登録は一度も解除されません。
  *
- * <p>表示中の二重読み取りは、呼び出し元が{@code enableNFC}をfalseにすることで抑止する。
+ * <p>表示中の二重読み取りは、呼び出し元が{@code enableNFC}をfalseにすることで抑止します。
  *
- * <p>読み取り結果のJSONはFragmentの引数として渡す。引数は状態保存時に保存・復元されるため、
- * 画面回転やプロセス復元の後も再描画できる(共有ViewModelではプロセス復元で失われる)。
+ * <p>読み取り結果のJSONはFragmentの引数として渡します。引数は状態保存時に保存・復元される
+ * ため、画面回転やプロセス復元の後も再描画できます(共有ViewModelでは復元で失われます)。
  */
-public class EPViewerFragment
+public class ViewerFragment
     extends Fragment
 {
-    /** FragmentManagerへ登録する際のタグ。 */
-    public static final String TAG_FRAGMENT = "epviewer";
+    /** FragmentManagerへ登録する際のタグ。1つのActivityにビューアは1つだけ表示します。 */
+    public static final String TAG_FRAGMENT = "viewer";
+
+    /** パスポートのビューア。 */
+    public static final String ASSET_EP = "file:///android_asset/ep/ep.html";
+    /** 運転免許証のビューア。 */
+    public static final String ASSET_DL = "file:///android_asset/dl/dl.html";
+    /** 在留カード(第1世代)のビューア。 */
+    public static final String ASSET_RC = "file:///android_asset/rc/rc.html";
+    /** 在留カード(第2世代)のビューア。 */
+    public static final String ASSET_RC2 = "file:///android_asset/rc2/rc2.html";
+    /** マイナンバーカード券面のビューア。 */
+    public static final String ASSET_IN = "file:///android_asset/in/in.html";
+    /** マイナ運転免許証のビューア。 */
+    public static final String ASSET_INDL = "file:///android_asset/indl/indl.html";
+    /** 電子証明書のビューア。 */
+    public static final String ASSET_CERT = "file:///android_asset/show_cert/show_cert.html";
 
     private static final String TAG = BaseActivity.TAG;
     private static final String ARG_ASSET_URL = "assetUrl";
     private static final String ARG_JSON = "json";
-
-    private static final String EP_ASSET_URL = "file:///android_asset/ep/ep.html";
 
     private WebView webView;
 
     /**
      * インスタンスを生成します。
      *
+     * @param assetUrl 表示するHTMLのURL({@link #ASSET_EP}など)
      * @param json 表示する読み取り結果のJSON
      * @return 生成したインスタンス
      */
-    public static EPViewerFragment newInstance(String json) {
+    public static ViewerFragment newInstance(String assetUrl, String json) {
         Bundle args = new Bundle();
-        args.putString(ARG_ASSET_URL, EP_ASSET_URL);
+        args.putString(ARG_ASSET_URL, assetUrl);
         args.putString(ARG_JSON, json);
-        EPViewerFragment fragment = new EPViewerFragment();
+        ViewerFragment fragment = new ViewerFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,7 +78,7 @@ public class EPViewerFragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_ep_viewer, container, false);
+        return inflater.inflate(R.layout.fragment_viewer, container, false);
     }
 
     @Override

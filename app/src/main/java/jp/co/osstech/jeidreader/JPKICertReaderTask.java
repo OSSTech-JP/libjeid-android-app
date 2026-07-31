@@ -1,6 +1,5 @@
 package jp.co.osstech.jeidreader;
 
-import android.content.Intent;
 import android.nfc.Tag;
 import android.util.Log;
 import java.security.MessageDigest;
@@ -240,12 +239,9 @@ public class JPKICertReaderTask
                 }
             }
 
-            // ビューアーを表示
-            Intent intent = new Intent(activity, JPKICertViewerActivity.class);
-            intent.putExtra("json", obj.toString());
-            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
-            // UIスレッドから呼ぶことが推奨される
-            activity.runOnUiThread(() -> activity.startActivity(intent));
+            // ビューアは別Activityではなく読み取り画面内のFragmentとして表示する
+            final String json = obj.toString();
+            activity.runOnUiThread(() -> activity.showViewer(json));
         } catch (Exception e) {
             Log.e(TAG, "error at " + getClass().getSimpleName() + "#doInBackground()", e);
             publishProgress("エラー: カードを読み取れませんでした" + e.getMessage());

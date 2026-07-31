@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ビューアはこのActivity内のFragmentとして ep_viewer_container に表示する。
+<!-- ビューアはこのActivity内のFragmentとして viewer_container に表示する。
      別Activityにすると画面遷移でNFCリーダーモードの解除・再登録が発生するため。 -->
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -118,7 +118,7 @@
   </ScrollView>
 </LinearLayout>
   <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/ep_viewer_container"
+      android:id="@+id/viewer_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:visibility="gone" />

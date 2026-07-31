@@ -1,6 +1,5 @@
 package jp.co.osstech.jeidreader;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.nfc.Tag;
 import android.util.Base64;
@@ -139,12 +138,9 @@ public class RCReaderTask
                 // free版の場合、真正性検証処理で
                 // UnsupportedOperationException が返ります。
             }
-            // Viewerを起動
-            Intent intent = new Intent(activity, RCViewerActivity.class);
-            intent.putExtra("json", obj.toString());
-            // バックグラウンドスレッドから直接startActivityを呼んでも動作するが、
-            // UIスレッドから呼ぶことが推奨される
-            activity.runOnUiThread(() -> activity.startActivity(intent));
+            // ビューアは別Activityではなく読み取り画面内のFragmentとして表示する
+            final String json = obj.toString();
+            activity.runOnUiThread(() -> activity.showViewer(json));
         } catch (Exception e) {
             Log.e(TAG, "error", e);
             publishProgress("エラー: " + e);
