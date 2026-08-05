@@ -84,16 +84,26 @@ function setImage(id, src) {
 function render(json) {
     var data = JSON.parse(json);
 
-    // "05" = 第2世代在留カード, "06" = 第2世代特別永住者証明書
-    var isSprc = (data['rc2-card-type'] === '06');
-    if (isSprc) {
-        document.getElementById('rc2-header').classList.add('type-sprc');
+    // カード種別 (第二世代/特定在留カード等仕様書 v1.1 3.3.4.2)
+    //   "05" = 第2世代在留カード       "06" = 第2世代特別永住者証明書
+    //   "07" = 特定在留カード          "08" = 特定特別永住者証明書
+    // 特定在留カード等は個人番号カード上の在留APだが、記録内容は第2世代と共通のため
+    // この画面を共用する。英語表記は仕様に定義が無いので基となる券種のものを使う。
+    var cardType = data['rc2-card-type'];
+    var isSprc = (cardType === '06' || cardType === '08');
+    var isSpecified = (cardType === '07' || cardType === '08');
+    if (isSprc || isSpecified) {
         var nameJp = document.getElementById('rc2-card-name-jp');
         var nameEn = document.getElementById('rc2-card-name-en');
-        nameJp.textContent = '特別永住者証明書';
-        nameJp.classList.add('type-sprc');
-        nameEn.textContent = 'SPECIAL PERMANENT RESIDENT CERTIFICATE';
-        nameEn.classList.add('type-sprc');
+        nameJp.textContent = (isSpecified ? '特定' : '')
+            + (isSprc ? '特別永住者証明書' : '在留カード');
+        nameEn.textContent = isSprc
+            ? 'SPECIAL PERMANENT RESIDENT CERTIFICATE' : 'RESIDENCE CARD';
+    }
+    if (isSprc) {
+        document.getElementById('rc2-header').classList.add('type-sprc');
+        document.getElementById('rc2-card-name-jp').classList.add('type-sprc');
+        document.getElementById('rc2-card-name-en').classList.add('type-sprc');
         // 在留資格・在留期間・許可・資格外活動許可欄は在留カードのみの項目
         var rows = document.getElementsByClassName('rc2-only');
         for (var i = 0; i < rows.length; i++) {

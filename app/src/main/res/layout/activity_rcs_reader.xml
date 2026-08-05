@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ビューアはこのActivity内のFragmentとして viewer_container に表示する。
+     別Activityにすると画面遷移でNFCリーダーモードの解除・再登録が発生するため。 -->
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
+    style="@style/AppLayout">
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <TextView
+          android:id="@+id/info"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="在留カード等の番号を入力し、カードを読み取り位置にタッチしてください。特定在留カード等は個人番号カード上の在留APとして実装されています。特定特別永住者証明書も読み取れます。"
+          android:textSize="20sp" />
+      <TextView
+          android:id="@+id/text_rc_number"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="在留カード等の番号"
+          android:textSize="20sp" />
+      <EditText
+          android:id="@+id/edit_rc_number"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:ems="10"
+          android:textSize="20sp"
+          android:inputType="text"
+          android:maxLength="12"
+          android:hint="@null"
+          tools:ignore="Autofill"/>
+    </LinearLayout>
+  </ScrollView>
+  <ScrollView
+      android:id="@+id/scroll"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="8dp">
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textIsSelectable="true"
+        android:textSize="12sp" />
+  </ScrollView>
+</LinearLayout>
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/viewer_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone" />
+</merge>

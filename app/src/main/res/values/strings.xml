@@ -34,6 +34,8 @@
     <string name="rc1_reader">(第1世代)在留カード読み出し</string>
     <string name="rc2_reader">第2世代在留カード読み出し</string>
     <string name="rc2_viewer">第2世代在留カードビューア</string>
+    <string name="rcs_reader">特定在留カード読み出し</string>
+    <string name="rcs_viewer">特定在留カードビューア</string>
     <!--<string name="acs_reader">ACSカードリーダー</string>-->
     <string name="in_test">個人番号カードテスト</string>
     <string name="test_mode_enabled">テストモードを有効にしました</string>
