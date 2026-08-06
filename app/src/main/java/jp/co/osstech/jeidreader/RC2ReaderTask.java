@@ -93,16 +93,21 @@ public class RC2ReaderTask
             publishProgress("## 券面記載事項");
             RC2CardEntries cardEntries = files.getCardEntries();
             publishProgress(cardEntries.toString());
-            obj.put("rc2-valid-until", cardEntries.getValidUntil());
+            obj.put("rc2-valid-until", cardEntries.getCardValidUntil());
             obj.put("rc2-birth-date", cardEntries.getBirthDate());
             obj.put("rc2-sex", cardEntries.getSex());
+            // コード表(RC2Code)による券面表示も渡す。ビューアは「名前 (コード)」で表示し、
+            // コード表に無いコードでは名前がnullになるので生のコードだけを表示する
             obj.put("rc2-nationality", cardEntries.getNationality());
+            obj.put("rc2-nationality-name", cardEntries.getNationalityName());
             obj.put("rc2-status", cardEntries.getResidenceStatus());
-            obj.put("rc2-period", cardEntries.getPeriod());
-            obj.put("rc2-permit-category", cardEntries.getPermitCategory());
-            obj.put("rc2-permit-date", cardEntries.getPermitDate());
+            obj.put("rc2-status-name", cardEntries.getResidenceStatusName());
+            obj.put("rc2-period", cardEntries.getStayPeriod());
+            obj.put("rc2-permit-category", cardEntries.getPermissionType());
+            obj.put("rc2-permit-category-name", cardEntries.getPermissionTypeName());
+            obj.put("rc2-permit-date", cardEntries.getPermissionDate());
             obj.put("rc2-work-restriction", cardEntries.getWorkRestriction());
-            obj.put("rc2-period-until", cardEntries.getPeriodUntil());
+            obj.put("rc2-period-until", cardEntries.getStayPeriodUntil());
 
             publishProgress("## 氏名イメージ・顔画像のデコード");
             RC2NameImage nameImage = files.getNameImage();
@@ -148,7 +153,7 @@ public class RC2ReaderTask
             publishProgress("## その他");
             RC2Others others = files.getOthers();
             publishProgress(others.toString());
-            obj.put("rc2-commissioner-mark", others.getCommissionerMark());
+            obj.put("rc2-commissioner-entry", others.hasCommissionerEntry());
             obj.put("rc2-reserved", others.getReserved());
 
             publishProgress("## 電子署名");
