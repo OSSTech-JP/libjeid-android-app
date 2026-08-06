@@ -79,8 +79,8 @@ public class MrzScanFragment
          * MRZの読み取りに成功したときに呼ばれます。
          *
          * @param documentNumber 旅券番号
-         * @param birthDate 生年月日(YYYYMMDDの8桁)
-         * @param expirationDate 有効期限(YYYYMMDDの8桁)
+         * @param birthDate 生年月日(MRZと同じYYMMDDの6桁)
+         * @param expirationDate 有効期限(MRZと同じYYMMDDの6桁)
          */
         void onMrzScanned(String documentNumber, String birthDate, String expirationDate);
 
@@ -396,9 +396,11 @@ public class MrzScanFragment
         }
         Listener listener = listener();
         if (listener != null) {
+            // MRZの2桁年をそのまま渡す。読み取りに使うのは2桁年であり、
+            // 4桁へ広げると世紀を推測する必要が生じて表示を誤り得る。
             listener.onMrzScanned(result.getDocumentNumber(),
-                    result.getBirthDateYyyyMmDd(),
-                    result.getExpirationDateYyyyMmDd());
+                    result.getBirthDate(),
+                    result.getExpirationDate());
         }
         dismiss();
     }

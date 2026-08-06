@@ -1,7 +1,5 @@
 package jp.co.osstech.jeidreader.ocr;
 
-import java.util.Calendar;
-
 /**
  * MRZ(TD3)から読み取った情報。
  *
@@ -126,43 +124,6 @@ public final class MrzScanResult {
      */
     public String getGivenName() {
         return givenName;
-    }
-
-    /**
-     * 生年月日をYYYYMMDDの8桁で返します。
-     *
-     * <p>MRZは2桁年のため、現在年の下2桁以下なら2000年代、それより大きければ1900年代と解釈する。
-     *
-     * @return 生年月日(YYYYMMDD)
-     */
-    public String getBirthDateYyyyMmDd() {
-        return getBirthDateYyyyMmDd(Calendar.getInstance().get(Calendar.YEAR));
-    }
-
-    /**
-     * 生年月日をYYYYMMDDの8桁で返します。
-     *
-     * @param currentYear 現在の西暦年
-     * @return 生年月日(YYYYMMDD)
-     */
-    public String getBirthDateYyyyMmDd(int currentYear) {
-        int yy = Integer.parseInt(birthDate.substring(0, 2));
-        int century = (yy <= currentYear % 100) ? 2000 : 1900;
-        return (century + yy) + birthDate.substring(2);
-    }
-
-    /**
-     * 有効期限をYYYYMMDDの8桁で返します。
-     *
-     * <p>旅券の有効期間は最長10年であり、有効期限が1970年代以前になることはないため、
-     * 下2桁が70未満なら2000年代と解釈する。
-     *
-     * @return 有効期限(YYYYMMDD)
-     */
-    public String getExpirationDateYyyyMmDd() {
-        int yy = Integer.parseInt(expirationDate.substring(0, 2));
-        int century = (yy < 70) ? 2000 : 1900;
-        return (century + yy) + expirationDate.substring(2);
     }
 
     /**

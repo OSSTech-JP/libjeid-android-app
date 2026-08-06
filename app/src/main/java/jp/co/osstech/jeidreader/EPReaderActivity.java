@@ -1,5 +1,6 @@
 package jp.co.osstech.jeidreader;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -52,6 +53,10 @@ public class EPReaderActivity
             this.enableNFC = true;
         });
         findViewById(R.id.button_ep_scan_mrz).setOnClickListener(v -> showMrzScanner());
+        findViewById(R.id.button_ep_birth_date_help)
+            .setOnClickListener(v -> showDateFormatHelp("生年月日"));
+        findViewById(R.id.button_ep_expire_date_help)
+            .setOnClickListener(v -> showDateFormatHelp("有効期限"));
 
         String[] items = getResources().getStringArray(R.array.inputs_ep_reader);
         if (items.length == 0) {
@@ -149,7 +154,31 @@ public class EPReaderActivity
     }
 
     /**
-     * MRZ読み取り結果を入力欄へ反映します。日付はYYYYMMDDの8桁で渡されます。
+     * 日付欄の入力形式を説明するダイアログを表示します。
+     *
+     * <p>読み取りに使うのはMRZと同じ2桁年のためラベルはYYMMDDとしているが、
+     * 西暦4桁で入力したいという要望にも応えるため8桁も受け付けている。
+     * ラベルだけでは4桁も可であることが伝わらないため、ここで具体例を示す。
+     *
+     * @param label 対象の項目名
+     */
+    private void showDateFormatHelp(String label) {
+        new AlertDialog.Builder(this)
+            .setTitle(label + "の入力形式")
+            .setMessage("西暦の下2桁から続けて、年月日を6桁で入力してください。\n\n"
+                    + "例) 1990年11月8日 → 901108\n"
+                    + "例) 2026年5月20日 → 260520\n\n"
+                    + "西暦4桁のYYYYMMDD(8桁)でも入力できます。\n\n"
+                    + "例) 1990年11月8日 → 19901108\n"
+                    + "例) 2026年5月20日 → 20260520\n\n"
+                    + "パスポート券面下部のMRZ(機械読取領域)には西暦の下2桁が"
+                    + "記載されているため、カメラで読み取った場合は6桁が入ります。")
+            .setPositiveButton("閉じる", null)
+            .show();
+    }
+
+    /**
+     * MRZ読み取り結果を入力欄へ反映します。日付はMRZと同じYYMMDDの6桁で渡されます。
      */
     @Override
     public void onMrzScanned(String documentNumber, String birth, String expire) {

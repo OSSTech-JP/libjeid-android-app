@@ -70,10 +70,12 @@ public class EPReaderTask
             publishProgress("生年月日を設定してください");
             return;
         }
+        // 読み取りに使うのはMRZと同じ2桁年。西暦4桁での入力も受け付けるため、
+        // 8桁で渡された場合は先頭2桁を落として6桁へ揃える。
         if (birthDate.length() == 8) {
             birthDate = birthDate.substring(2);
         } else if (birthDate.length() != 6) {
-            publishProgress("生年月日が8桁ではありません");
+            publishProgress("生年月日は6桁(YYMMDD)または8桁(YYYYMMDD)で入力してください");
             return;
         }
 
@@ -84,7 +86,7 @@ public class EPReaderTask
         if (expireDate.length() == 8) {
             expireDate = expireDate.substring(2);
         } else if (expireDate.length() != 6) {
-            publishProgress("有効期限が8桁ではありません");
+            publishProgress("有効期限は6桁(YYMMDD)または8桁(YYYYMMDD)で入力してください");
             return;
         }
         EPMRZ mrz;
