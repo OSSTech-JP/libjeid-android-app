@@ -1,3 +1,7 @@
+// 第2世代在留カード等・特定在留カード等のビューア。
+// このファイルは libjeid-ios-app app/WebAssets/rc2/ にも同じものを置いているので、
+// 変更したら両方を更新すること。
+//
 // 第二世代在留カード等仕様書 v1.1 3.3.4.4 / 3.3.4.7〜3.3.4.9 のコード定義
 var SEX = {
     '1': '男',
@@ -28,20 +32,41 @@ var UPDATE_STATUS = {
     '1': '申請中'
 };
 
-var COMMISSIONER_MARK = {
-    '0': '無し',
-    '1': '出入国在留管理庁長官が記録'
-};
 
+// コードは券面表示(名前)だけを出す。コードそのものは読み取りログに出るので
+// ビューアでは冗長になる。参照できないコードだけ「不明 (コード)」で明示する。
 function decode(table, code) {
     if (code === undefined || code === null || code === '') {
         return '';
     }
     if (code in table) {
-        return table[code] + ' (' + code + ')';
+        return table[code];
     }
     // 仕様に定義のないコード。生の値だけを出すと意味が分からないため明示する
     return '不明 (' + code + ')';
+}
+
+// 出入国在留管理庁長官記載の有無。読み取り側は boolean で渡す
+// (libjeid の RC2Others#hasCommissionerEntry。仕様上このフィールドは常に格納される)
+function decodeCommissionerEntry(value) {
+    if (value === undefined || value === null) {
+        return '';
+    }
+    return value ? '出入国在留管理庁長官が記録' : '無し';
+}
+
+// libjeid の RC2Code (出入国在留管理庁のコード表) で変換した券面表示。
+// 名前は読み取り側 (RC2ReaderTask / RCSReaderTask / iOS RC2ViewerData) が
+// "<key>-name" で渡す。decode() と同じく名前だけを出し、
+// コード表に無いコード (名前が来ない) だけ「不明 (コード)」で明示する。
+function decodeName(name, code) {
+    if (code === undefined || code === null || code === '') {
+        return '';
+    }
+    if (!name) {
+        return '不明 (' + code + ')';
+    }
+    return name;
 }
 
 // YYYYMMDD を YYYY年M月D日 に整形する
@@ -56,12 +81,12 @@ function formatDate(value) {
 
 // 在留期間は無期限(永住者など)の場合 "0000"、
 // それ以外は YYMM(年月) もしくは DDD(日数)
-function formatPeriod(value) {
+function formatStayPeriod(value) {
     if (!value) {
         return '';
     }
     if (value === '0000') {
-        return '無期限 (0000)';
+        return '無期限';
     }
     return value;
 }
@@ -114,14 +139,17 @@ function render(json) {
     setText('rc2-card-number', data['rc2-card-number']);
     setText('rc2-birth-date', formatDate(data['rc2-birth-date']));
     setText('rc2-sex', decode(SEX, data['rc2-sex']));
-    setText('rc2-nationality', data['rc2-nationality']);
-    setText('rc2-status', data['rc2-status']);
+    setText('rc2-nationality',
+            decodeName(data['rc2-nationality-name'], data['rc2-nationality']));
+    setText('rc2-status',
+            decodeName(data['rc2-status-name'], data['rc2-status']));
     setText('rc2-work-restriction', decode(WORK_RESTRICTION, data['rc2-work-restriction']));
-    setText('rc2-period', formatPeriod(data['rc2-period']));
-    setText('rc2-period-until', formatDate(data['rc2-period-until']));
-    setText('rc2-permit-category', data['rc2-permit-category']);
-    setText('rc2-permit-date', formatDate(data['rc2-permit-date']));
-    setText('rc2-valid-until', formatDate(data['rc2-valid-until']));
+    setText('rc2-stay-period', formatStayPeriod(data['rc2-stay-period']));
+    setText('rc2-stay-period-until', formatDate(data['rc2-stay-period-until']));
+    setText('rc2-permission-type',
+            decodeName(data['rc2-permission-type-name'], data['rc2-permission-type']));
+    setText('rc2-permission-date', formatDate(data['rc2-permission-date']));
+    setText('rc2-card-valid-until', formatDate(data['rc2-card-valid-until']));
 
     // 1歳未満の中長期在留者・特別永住者では顔画像が格納されない
     setImage('rc2-face-image', data['rc2-face-image']);
@@ -132,7 +160,7 @@ function render(json) {
     setText('rc2-comprehensive-limit', formatDate(data['rc2-comprehensive-limit']));
     setText('rc2-individual', decode(INDIVIDUAL, data['rc2-individual']));
     setText('rc2-update-status', decode(UPDATE_STATUS, data['rc2-update-status']));
-    setText('rc2-commissioner-mark', decode(COMMISSIONER_MARK, data['rc2-commissioner-mark']));
+    setText('rc2-commissioner-entry', decodeCommissionerEntry(data['rc2-commissioner-entry']));
     setText('rc2-reserved', data['rc2-reserved']);
 
     if ('rc2-validation-result' in data) {
