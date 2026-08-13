@@ -63,7 +63,8 @@ public abstract class BaseActivity
         if(!this.enableNFC) {
             // メニュー画面やビューアーでNFC読み取りを無効化します
             // これを行わないと通常モード(OS標準)の読み取りが有効になるからです
-            nfcAdapter.enableReaderMode(this, null, NfcAdapter.STATE_OFF, null);
+            nfcAdapter.enableReaderMode(this, null,
+                                        NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK, null);
             return;
         }
         Bundle options = new Bundle();
