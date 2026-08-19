@@ -17,6 +17,35 @@
     <item name="android:textColor">@color/colorText</item>
     <item name="android:background">@color/colorBackground</item>
   </style>
+  <!-- メニュー項目のカード。menu_item.xmlのルートに適用します。 -->
+  <style name="MenuItem">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/menu_item_spacing</item>
+    <item name="android:layout_marginBottom">@dimen/menu_item_spacing</item>
+    <item name="android:minHeight">@dimen/menu_item_min_height</item>
+    <item name="android:orientation">horizontal</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:padding">@dimen/menu_item_padding</item>
+    <item name="android:background">@drawable/menu_item_background</item>
+    <item name="android:clickable">true</item>
+    <item name="android:focusable">true</item>
+  </style>
+  <style name="MenuItemTitle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">@color/colorText</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <style name="MenuItemDescription">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">2dp</item>
+    <item name="android:textColor">@color/menuItemDescription</item>
+    <item name="android:textSize">13sp</item>
+  </style>
+  <!-- 証明書選択画面(activity_select_cert.xml)で使用しています -->
   <style name="MenuButton">
     <item name="android:textColor">@color/colorText</item>
     <item name="android:background">@drawable/button_background</item>

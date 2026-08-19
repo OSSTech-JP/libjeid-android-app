@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- MenuActivityがメニュー項目ごとに動的にinflateするボタンです。
-     @style/MenuButtonはlayout_width等のlayoutパラメータを含むため、
-     new Button()ではなく親を指定したinflateで生成する必要があります。 -->
-<Button
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/MenuButton" />

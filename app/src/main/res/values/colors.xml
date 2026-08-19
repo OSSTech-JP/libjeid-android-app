@@ -7,4 +7,12 @@
   <color name="colorText">#393939</color>
   <color name="ic_launcher_background">#DEEBF7</color>
   <!--color name="colorButton">#D2EBCD</color-->
+
+  <!-- メニュー項目(カード)の配色 -->
+  <color name="menuItemBackground">#FFFFFF</color>
+  <color name="menuItemStroke">#DCE6EE</color>
+  <color name="menuItemRipple">#33AACADE</color>
+  <color name="menuItemIcon">#3F51B5</color>
+  <color name="menuItemDescription">#6B6B6B</color>
+  <color name="menuItemChevron">#B0B0B0</color>
 </resources>

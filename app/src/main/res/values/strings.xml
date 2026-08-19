@@ -40,4 +40,22 @@
     <string name="in_test">個人番号カードテスト</string>
     <string name="test_mode_enabled">テストモードを有効にしました</string>
     <string name="test_mode_disabled">テストモードを無効にしました</string>
+
+    <!-- メニュー項目の説明文 -->
+    <string name="in_menu_desc">券面事項・電子証明書の読み取り</string>
+    <string name="dl_reader_desc">ICチップの記録事項を読み取り</string>
+    <string name="ep_reader_desc">券面情報と顔画像を読み取り</string>
+    <string name="rc_menu_desc">在留カード・特別永住者証明書の読み取り</string>
+    <string name="pinstatus_desc">暗証番号の残り試行回数を確認</string>
+
+    <string name="in_reader_desc">氏名・住所など券面事項を読み取り</string>
+    <string name="indl_reader_desc">カードに記録された免許情報を読み取り</string>
+    <string name="show_cert_desc">公的個人認証の証明書を表示</string>
+    <string name="sign_jpki_auth_desc">ユーザー認証用鍵で署名</string>
+    <string name="sign_jpki_sign_desc">デジタル署名用鍵で署名</string>
+    <string name="in_test_desc">動作確認用の診断メニュー</string>
+
+    <string name="rc1_reader_desc">第1世代の在留カード・特別永住者証明書</string>
+    <string name="rc2_reader_desc">第2世代の在留カード</string>
+    <string name="rcs_reader_desc">マイナンバーカード上の在留情報を読み取り</string>
 </resources>

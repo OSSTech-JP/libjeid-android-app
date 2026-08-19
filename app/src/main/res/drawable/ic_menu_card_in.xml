@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- マイナンバーカード。顔写真と記載事項のある券面を表します。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <!-- カードの外形 -->
+  <path
+      android:fillColor="#00000000"
+      android:strokeColor="@color/menuItemIcon"
+      android:strokeWidth="1.8"
+      android:strokeLineJoin="round"
+      android:pathData="M4.5,5.5 h15 a2,2 0 0,1 2,2 v9 a2,2 0 0,1 -2,2 h-15 a2,2 0 0,1 -2,-2 v-9 a2,2 0 0,1 2,-2 z" />
+  <!-- 顔写真 -->
+  <path
+      android:fillColor="#00000000"
+      android:strokeColor="@color/menuItemIcon"
+      android:strokeWidth="1.5"
+      android:pathData="M7.5,11.2 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+  <path
+      android:fillColor="#00000000"
+      android:strokeColor="@color/menuItemIcon"
+      android:strokeWidth="1.5"
+      android:strokeLineCap="round"
+      android:pathData="M6.3,15.7 C6.7,14.3 7.9,13.5 9.5,13.5 C11.1,13.5 12.3,14.3 12.7,15.7" />
+  <!-- 記載事項 -->
+  <path
+      android:fillColor="#00000000"
+      android:strokeColor="@color/menuItemIcon"
+      android:strokeWidth="1.5"
+      android:strokeLineCap="round"
+      android:pathData="M15,10 h4 M15,13 h4" />
+</vector>

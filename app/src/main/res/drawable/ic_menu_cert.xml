@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 電子証明書。検証済みを示す盾とチェックで表します。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="#00000000"
+      android:strokeColor="@color/menuItemIcon"
+      android:strokeWidth="1.8"
+      android:strokeLineJoin="round"
+      android:pathData="M12,2.8 L20,5.8 V11.5 C20,16.3 16.6,20 12,21.2 C7.4,20 4,16.3 4,11.5 V5.8 z" />
+  <path
+      android:fillColor="#00000000"
+      android:strokeColor="@color/menuItemIcon"
+      android:strokeWidth="1.8"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:pathData="M8.8,11.9 L11.2,14.3 L15.4,10.1" />
+</vector>

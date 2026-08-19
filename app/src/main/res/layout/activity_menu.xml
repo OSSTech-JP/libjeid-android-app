@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 全てのメニュー画面が共有するレイアウトです。
-     ボタンはMenuActivityがmenu_containerへ動的に追加します。 -->
-<LinearLayout
+     カードはMenuActivityがmenu_containerへ動的に追加します。
+     項目数と説明文で高さが伸びるため、小画面でも収まるようScrollViewにしています。 -->
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/AppLayout">
+    style="@style/AppLayout"
+    android:fillViewport="true">
   <LinearLayout
       android:id="@+id/menu_container"
       android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
-</LinearLayout>
+</ScrollView>
