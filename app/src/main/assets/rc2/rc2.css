@@ -111,31 +111,6 @@ h1 {
   font-size: 13px;
 }
 
-.rc2-number-wrapper {
-  display: inline-block;
-  position: absolute;
-  top: 4px;
-  right: 12px;
-  font-size: 0;
-}
-
-.rc2-number-jp {
-  height: 14px;
-  font-size: 14px;
-  line-height: 14px;
-  white-space: nowrap;
-}
-
-.rc2-number-value {
-  height: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 20px;
-  letter-spacing: 1px;
-  white-space: nowrap;
-  font-family: monospace;
-}
-
 .rc2-body {
   display: flex;
   align-items: stretch;
@@ -194,18 +169,49 @@ table.rc2-face-table td {
 }
 
 table.rc2-face-table th {
-  width: 105px;
   font-weight: normal;
   background-color: rgba(0,180,255,0.10);
 }
 
-/* 1行に2項目並ぶ場合の2項目目のラベル */
-table.rc2-face-table th.sub {
-  width: 80px;
+/* 列幅 (border-box)。生年月日・性別・国籍･地域を1行に収めるための実測値で、
+   残り(国籍･地域の値)は約100px = 全角6文字。長い国名は2行に折り返す。 */
+table.rc2-face-table col.rc2-col-label {
+  width: 114px;
+}
+
+table.rc2-face-table col.rc2-col-birth-date {
+  /* "2000年12月31日" が1行に収まる幅 */
+  width: 107px;
+}
+
+table.rc2-face-table col.rc2-col-sex-label {
+  width: 39px;
+}
+
+table.rc2-face-table col.rc2-col-sex {
+  width: 23px;
+}
+
+table.rc2-face-table col.rc2-col-nationality-label {
+  width: 77px;
 }
 
 table.rc2-face-table td {
   font-size: 14px;
+}
+
+/* 番号は実物の券面と同じく等幅で強調する */
+table.rc2-face-table td.rc2-card-number-value {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: monospace;
+}
+
+/* 「このカードは…まで有効です。」は券面下端の一文なのでラベル欄を持たない */
+table.rc2-face-table td.rc2-validity {
+  font-size: 15px;
+  text-align: center;
 }
 
 table.rc2-face-table th .en {

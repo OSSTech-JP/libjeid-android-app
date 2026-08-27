@@ -109,9 +109,10 @@ public class RCSReaderTask
             publishProgress("## 券面記載事項");
             RC2CardEntries cardEntries = files.getCardEntries();
             publishProgress(cardEntries.toString());
-            obj.put("rc2-card-valid-until", cardEntries.getCardValidUntil());
+            obj.put("rc2-card-expire-date", cardEntries.getCardExpireDate());
             obj.put("rc2-birth-date", cardEntries.getBirthDate());
             obj.put("rc2-sex", cardEntries.getSex());
+            obj.put("rc2-sex-name", cardEntries.getSexName());
             // コード表(RC2Code)による券面表示も渡す。ビューアは「名前 (コード)」で表示し、
             // コード表に無いコードでは名前がnullになるので生のコードだけを表示する
             obj.put("rc2-nationality", cardEntries.getNationality());
@@ -119,11 +120,13 @@ public class RCSReaderTask
             obj.put("rc2-status", cardEntries.getResidenceStatus());
             obj.put("rc2-status-name", cardEntries.getResidenceStatusName());
             obj.put("rc2-stay-period", cardEntries.getStayPeriod());
+            obj.put("rc2-stay-period-name", cardEntries.getStayPeriodName());
             obj.put("rc2-permission-type", cardEntries.getPermissionType());
             obj.put("rc2-permission-type-name", cardEntries.getPermissionTypeName());
             obj.put("rc2-permission-date", cardEntries.getPermissionDate());
             obj.put("rc2-work-restriction", cardEntries.getWorkRestriction());
-            obj.put("rc2-stay-period-until", cardEntries.getStayPeriodUntil());
+            obj.put("rc2-work-restriction-name", cardEntries.getWorkRestrictionName());
+            obj.put("rc2-stay-period-expire-date", cardEntries.getStayPeriodExpireDate());
 
             publishProgress("## 氏名イメージ・顔画像のデコード");
             RC2NameImage nameImage = files.getNameImage();
@@ -154,8 +157,10 @@ public class RCSReaderTask
                 publishProgress(String.valueOf(permission));
                 if (permission != null) {
                     obj.put("rc2-comprehensive", permission.getComprehensive());
+                    obj.put("rc2-comprehensive-name", permission.getComprehensiveName());
                     obj.put("rc2-comprehensive-limit", permission.getComprehensiveLimit());
                     obj.put("rc2-individual", permission.getIndividual());
+                    obj.put("rc2-individual-name", permission.getIndividualName());
                 }
 
                 publishProgress("## 在留期間更新等許可申請ステータス");
@@ -163,13 +168,15 @@ public class RCSReaderTask
                 publishProgress(String.valueOf(updateStatus));
                 if (updateStatus != null) {
                     obj.put("rc2-update-status", updateStatus.getStatus());
+                    obj.put("rc2-update-status-name", updateStatus.getStatusName());
                 }
             }
 
             publishProgress("## その他");
             RC2Others others = files.getOthers();
             publishProgress(others.toString());
-            obj.put("rc2-commissioner-entry", others.hasCommissionerEntry());
+            obj.put("rc2-commissioner-entry", others.getCommissionerEntry());
+            obj.put("rc2-commissioner-entry-name", others.getCommissionerEntryName());
             obj.put("rc2-reserved", others.getReserved());
 
             publishProgress("## 電子署名");

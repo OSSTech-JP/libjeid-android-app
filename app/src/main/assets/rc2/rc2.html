@@ -23,54 +23,60 @@
           <div class="rc2-card-name-jp" id="rc2-card-name-jp">在留カード</div>
           <div class="rc2-card-name-en" id="rc2-card-name-en">RESIDENCE CARD</div>
         </div>
-        <div class="rc2-number-wrapper">
-          <div class="rc2-number-jp">番号</div>
-          <div class="rc2-number-value" id="rc2-card-number"></div>
-        </div>
       </div>
       <div class="rc2-body">
       <table class="rc2-face-table">
+        <!--
+          1行に3項目(生年月日・性別・国籍･地域)を並べるため6列で組む。
+          table-layout:fixed では最初の行のセル幅が列幅になってしまうので、
+          colgroup で列ごとに指定する。
+        -->
+        <colgroup>
+          <col class="rc2-col-label"/>
+          <col class="rc2-col-birth-date"/>
+          <col class="rc2-col-sex-label"/>
+          <col class="rc2-col-sex"/>
+          <col class="rc2-col-nationality-label"/>
+          <col/>
+        </colgroup>
         <tr>
           <th>氏名<span class="en">NAME</span></th>
-          <td colspan="3"><img class="rc2-name-image" id="rc2-name-image"/></td>
+          <td colspan="5"><img class="rc2-name-image" id="rc2-name-image"/></td>
         </tr>
         <tr>
           <th>生年月日<span class="en">DATE OF BIRTH</span></th>
           <td id="rc2-birth-date"></td>
-          <th class="sub">性別<span class="en">SEX</span></th>
+          <th>性別<span class="en">SEX</span></th>
           <td id="rc2-sex"></td>
-        </tr>
-        <tr>
-          <th>国籍･地域<span class="en">NATIONALITY/REGION</span></th>
-          <td colspan="3" id="rc2-nationality"></td>
+          <!-- 3項目を1行に収めるため英字ラベル(NATIONALITY/REGION)は入らない -->
+          <th>国籍･地域</th>
+          <td id="rc2-nationality"></td>
         </tr>
         <tr>
           <th>住居地<span class="en">ADDRESS</span></th>
-          <td colspan="3"><img class="rc2-address-image" id="rc2-address-image"/></td>
-        </tr>
-        <tr class="rc2-only">
-          <th>在留資格<span class="en">STATUS</span></th>
-          <td colspan="3" id="rc2-status"></td>
+          <td colspan="5"><img class="rc2-address-image" id="rc2-address-image"/></td>
         </tr>
         <tr class="rc2-only">
           <th>就労制限の有無</th>
-          <td colspan="3" id="rc2-work-restriction"></td>
+          <td colspan="5" id="rc2-work-restriction"></td>
         </tr>
         <tr class="rc2-only">
-          <th>在留期間<span class="en">PERIOD OF STAY</span></th>
-          <td id="rc2-stay-period"></td>
-          <th class="sub">満了日</th>
-          <td id="rc2-stay-period-until"></td>
+          <th>在留資格<span class="en">STATUS</span></th>
+          <td colspan="5" id="rc2-status"></td>
         </tr>
         <tr class="rc2-only">
-          <th>許可の種類</th>
-          <td id="rc2-permission-type"></td>
-          <th class="sub">許可年月日</th>
-          <td id="rc2-permission-date"></td>
+          <th>在留期間満了日</th>
+          <td colspan="5" id="rc2-stay-period-expire-date"></td>
         </tr>
         <tr>
-          <th>有効期限満了日</th>
-          <td colspan="3" id="rc2-card-valid-until"></td>
+          <th>番号</th>
+          <td class="rc2-card-number-value" colspan="5" id="rc2-card-number"></td>
+        </tr>
+        <!-- 有効期限満了日は実物の券面と同じく下端の一文として出す -->
+        <tr>
+          <td class="rc2-validity" colspan="6">この<span
+            id="rc2-validity-noun">カード</span>は<span
+            id="rc2-card-expire-date"></span>まで有効です。</td>
         </tr>
       </table>
       <div class="rc2-face-image-wrapper">
@@ -79,6 +85,24 @@
         <div class="rc2-minister-of-justice">出入国在留管理庁長官</div>
       </div>
       </div>
+    </div>
+
+    <h1 class="rc2-only">在留資格</h1>
+    <div class="rc2-block rc2-only">
+      <table class="rc2-table">
+        <tr>
+          <th>在留期間</th>
+          <td id="rc2-stay-period"></td>
+        </tr>
+        <tr>
+          <th>許可の種類</th>
+          <td id="rc2-permission-type"></td>
+        </tr>
+        <tr>
+          <th>許可年月日</th>
+          <td id="rc2-permission-date"></td>
+        </tr>
+      </table>
     </div>
 
     <h1>裏面記載事項</h1>
