@@ -9,9 +9,10 @@ android {
     compileSdkVersion 36
     defaultConfig {
         applicationId "jp.co.osstech.jeidreader"
-        minSdkVersion 21
+        // ML Kit Text Recognition v2 と CameraX 1.5系がAPI 23以上を要求する
+        minSdkVersion 23
         targetSdkVersion 36
-        versionCode 57
+        versionCode 62
         versionName "1.0." + versionCode
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
@@ -85,12 +86,13 @@ repositories {
 
 
 dependencies {
+    // ローカルビルドのaarを利用するため、公開版(maven)の依存は無効化している
     if (local.getProperty("libjeid.username")) {
         // LibJeID製品版を利用
-        implementation 'jp.co.osstech:libjeid-full:20260610@aar'
+        implementation 'jp.co.osstech:libjeid-full:20260907@aar'
     } else {
         // LibJeID無償版を利用
-        implementation 'jp.co.osstech:libjeid-free:20260610@aar'
+        implementation 'jp.co.osstech:libjeid-free:20260907@aar'
     }
 
     // ダウンロードしたaarファイルを利用
@@ -101,4 +103,13 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'org.bouncycastle:bcprov-lts8on:2.73.10'
     implementation 'org.bouncycastle:bcpkix-lts8on:2.73.10'
+
+    // パスポート用OCR
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.1'
+    implementation 'androidx.camera:camera-core:1.5.1'
+    implementation 'androidx.camera:camera-camera2:1.5.1'
+    implementation 'androidx.camera:camera-lifecycle:1.5.1'
+    implementation 'androidx.camera:camera-view:1.5.1'
+
+    testImplementation 'junit:junit:4.13.2'
 }
