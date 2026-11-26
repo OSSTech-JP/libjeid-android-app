@@ -6,6 +6,7 @@
 
 body {
   font-size: medium;
+  font-family: Helvetica, sans-serif;
 }
 
 h1 {
@@ -30,7 +31,7 @@ h1 {
   border-radius: 10px;
   border: 1px solid #aaaaaa;
   font-size: 20px;
-  font-family: "Noto Sans";
+  font-family: Helvetica, sans-serif;
 }
 
 .rc2-header {
