@@ -61,7 +61,7 @@ function render(json) {
         document.getElementById("cardinfo-hojo-mynumber").textContent = mynumber;
     }
     if ('textap-validation-result' in data) {
-        document.getElementById("textap-validation-result").textContent = data['textap-validation-result'];
+        document.getElementById("textap-validation-result").textContent = data['textap-validation-result'] ? '有効' : '無効';
     }
     if ('cardinfo-cert-expire' in data) {
         var certExpire = data['cardinfo-cert-expire'];
@@ -101,7 +101,7 @@ function render(json) {
         document.getElementById("cardinfo-kenmen-mynumber").src = data['cardinfo-mynumber-image'];
     }
     if ('visualap-validation-result' in data) {
-        document.getElementById("visualap-validation-result").textContent = data['visualap-validation-result'];
+        document.getElementById("visualap-validation-result").textContent = data['visualap-validation-result'] ? '有効' : '無効';
     }
 }
 
