@@ -57,11 +57,6 @@ public class DLReaderTask
         activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 
-        if (pin1.isEmpty()) {
-            publishProgress("暗証番号1を入力してください");
-            return;
-        }
-
         // 読み取り中ダイアログを表示
         ProgressDialogFragment progress = new ProgressDialogFragment();
         activity.runOnUiThread(() -> {
@@ -86,6 +81,11 @@ public class DLReaderTask
             DLPinSetting pinSetting = ap.readPinSetting();
             publishProgress("## 暗証番号(PIN)設定");
             publishProgress(pinSetting.toString());
+
+            if (pin1.isEmpty()) {
+                publishProgress("暗証番号1を入力してください");
+                return;
+            }
             if (!pinSetting.isPinSet()) {
                 publishProgress("暗証番号(PIN)設定がfalseのため、デフォルトPINの「****」を暗証番号として使用します\n");
                 pin1 = DPIN;

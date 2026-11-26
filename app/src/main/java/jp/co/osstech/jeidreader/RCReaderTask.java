@@ -48,11 +48,6 @@ public class RCReaderTask
         activity.clear();
         publishProgress("# 読み取り開始、カードを離さないでください");
 
-        if (rcNumber.isEmpty()) {
-            publishProgress("在留カード番号または特別永住者証明書番号を設定してください");
-            return;
-        }
-
         ProgressDialogFragment progress = new ProgressDialogFragment();
         activity.runOnUiThread(() -> {
             progress.show(activity.getSupportFragmentManager(), "progress");
@@ -72,6 +67,11 @@ public class RCReaderTask
             publishProgress("commonData: " + commonData);
             RCCardType cardType = ap.readCardType();
             publishProgress("cardType: " + cardType);
+
+            if (rcNumber.isEmpty()) {
+                publishProgress("在留カード番号または特別永住者証明書番号を設定してください");
+                return;
+            }
             RCKey rckey = new RCKey(rcNumber);
             publishProgress("## セキュアメッセージング用の鍵交換&認証");
             try {
