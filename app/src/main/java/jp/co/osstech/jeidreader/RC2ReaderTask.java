@@ -97,7 +97,7 @@ public class RC2ReaderTask
             obj.put("rc2-birth-date", cardEntries.getBirthDate());
             obj.put("rc2-sex", cardEntries.getSex());
             obj.put("rc2-sex-name", cardEntries.getSexName());
-            // コード表(RC2Code)による券面表示も渡す。ビューアは「名前 (コード)」で表示し、
+            // コード表による券面表示も渡す。ビューアは「名前 (コード)」で表示し、
             // コード表に無いコードでは名前がnullになるので生のコードだけを表示する
             obj.put("rc2-nationality", cardEntries.getNationality());
             obj.put("rc2-nationality-name", cardEntries.getNationalityName());
